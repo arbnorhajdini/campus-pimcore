@@ -51,4 +51,12 @@ If the tools of the opendxp-testkit MCP server are available, run the tests and 
 
 ## Project specifics
 
-<!-- Describe the domain, the deployment and the conventions of this project here. -->
+A demo course platform for a fictional continuing-education school with several locations. It is a portfolio
+project, so the code must stay small, readable and explainable.
+
+- Domain: courses, locations and registrations as data objects; documents built from Areabricks.
+- Frontend: Twig with layout inheritance and partials, SCSS with BEM and mobile first, vanilla JavaScript as ES
+  modules. No frontend framework.
+- Languages: German (default) and French.
+- The `Makefile` wraps the commands above: `make test`, `make stan`, `make cs`.
+- The README is written in German.

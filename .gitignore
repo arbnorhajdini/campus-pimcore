@@ -40,8 +40,10 @@
 # Pest / PHPUnit
 /.phpunit.cache
 
-# composer
+# composer (COMPOSER_HOME is the project root inside the container)
 /vendor/
+/cache/
+/.htaccess
 
 # PhpStorm / IDEA
 .idea

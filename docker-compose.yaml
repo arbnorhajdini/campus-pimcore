@@ -42,7 +42,7 @@ services:
             - php
 
     php:
-        #user: '1000:1000' # set to your uid:gid
+        user: '${DOCKER_UID:-1000}:${DOCKER_GID:-1000}' # set by the Makefile
         image: opendxp/opendxp:php8.3-debug-latest
         environment:
             COMPOSER_HOME: /var/www/html
@@ -62,7 +62,7 @@ services:
             #- ./.docker/messenger.yaml:/var/www/html/config/packages/messenger.yaml:ro
 
     supervisord:
-        #user: '1000:1000' # set to your uid:gid
+        user: '${DOCKER_UID:-1000}:${DOCKER_GID:-1000}' # set by the Makefile
         image: opendxp/opendxp:php8.3-supervisord-latest
         depends_on:
             #rabbitmq:

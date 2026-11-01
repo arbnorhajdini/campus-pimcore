@@ -1,5 +1,6 @@
 {
-    "name": "open-dxp/skeleton",
+    "name": "arbnorhajdini/campus-pimcore",
+    "description": "Demo course platform built with OpenDXP (Pimcore), Symfony, Twig, SCSS and vanilla JavaScript",
     "type": "project",
     "license": "GPL-3.0-or-later",
     "config": {
