@@ -11,8 +11,8 @@ Das Projekt zeigt, wie ich ein Pimcore-Projekt aufbaue: von den Data Objects üb
 bis zu sauberem, barrierefreiem Frontend in Twig und SCSS.
 
 - [x] OpenDXP mit Docker, Start mit einem Befehl
-- [ ] Datenmodell: Kurse, Standorte, Anmeldungen als Data Objects
-- [ ] Demo-Daten per Konsolenbefehl, damit die Seite nach dem Start nicht leer ist
+- [x] Datenmodell: Kurse, Standorte, Anmeldungen als Data Objects
+- [x] Demo-Daten per Konsolenbefehl, damit die Seite nach dem Start nicht leer ist
 - [ ] Layout mit Twig-Vererbung, SCSS-Grundgerüst (BEM, Mobile First)
 - [ ] Startseite aus Areabricks: Hero, Teaser, nächste Kurse, Text mit Bild, FAQ
 - [ ] Kursübersicht mit Filter nach Standort und Kategorie, Kursdetailseite
@@ -41,8 +41,8 @@ cd campus-pimcore
 make setup
 ```
 
-`make setup` startet die Container, installiert die Pakete und richtet OpenDXP ein. Das dauert beim ersten Mal
-einige Minuten.
+`make setup` startet die Container, installiert die Pakete, richtet OpenDXP ein und legt die Demo-Inhalte an.
+Das dauert beim ersten Mal einige Minuten.
 
 | Was     | Adresse                  | Login             |
 | ------- | ------------------------ | ----------------- |
@@ -51,12 +51,26 @@ einige Minuten.
 
 Der Login gilt nur für diese lokale Demo.
 
+## Datenmodell
+
+Die Klassen liegen als Definition in [`var/classes/`](var/classes) und werden bei der Installation angelegt.
+
+| Klasse         | Felder                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------- |
+| `Location`     | Name, Ort, Adresse                                                                           |
+| `Course`       | Titel, Kurzbeschreibung, Beschreibung (je DE/FR), Slug, Kategorie, Form, Dauer, Preis, Start, Bild, Standorte |
+| `Registration` | Kurs, Standort, Vorname, Nachname, E-Mail, Telefon, Nachricht, Sprache                       |
+
+Die Demo-Inhalte stehen in [`fixtures/demo.yaml`](fixtures/demo.yaml). `make demo` legt sie an oder aktualisiert sie.
+Die Kursbilder sind generierte Farbverläufe, damit das Repo keine Fotos mit unklarer Lizenz enthält.
+
 ## Befehle
 
 | Befehl       | Was er macht                                       |
 | ------------ | -------------------------------------------------- |
 | `make setup` | Erster Start: Container, Pakete, Installation      |
 | `make up`    | Container starten                                  |
+| `make demo`  | Demo-Inhalte anlegen oder aktualisieren            |
 | `make down`  | Container stoppen                                  |
 | `make cache` | Caches leeren                                      |
 | `make cs`    | Code-Stil korrigieren (PHP-CS-Fixer)               |

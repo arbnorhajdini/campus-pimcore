@@ -14,12 +14,12 @@ PHP = $(COMPOSE) exec -T php
 TEST_PHP = $(COMPOSE) run --rm -T test-php
 
 .DEFAULT_GOAL := help
-.PHONY: help setup up down vendor install console cache cs stan test
+.PHONY: help setup up down vendor install demo console cache cs stan test
 
 help: ## Show this help
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-8s %s\n", $$1, $$2}'
 
-setup: up vendor install ## First start: containers, packages, installation
+setup: up vendor install demo ## First start: containers, packages, installation, demo content
 
 up: ## Start the containers
 	$(COMPOSE) up -d
@@ -34,6 +34,9 @@ install: ## Install OpenDXP into the database
 	$(PHP) vendor/bin/opendxp-install -n \
 		--admin-username=$(ADMIN_USER) --admin-password=$(ADMIN_PASSWORD) \
 		--install-bundles=$(BUNDLES)
+
+demo: ## Create or update the demo content
+	$(PHP) bin/console app:demo:install
 
 console: ## Run a console command, e.g. make console c=debug:router
 	$(PHP) bin/console $(c)

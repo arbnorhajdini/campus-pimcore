@@ -5,6 +5,10 @@ imports:
 opendxp:
     general:
         timezone: Europe/Zurich
+        valid_languages: [de, fr]
+        default_language: de
+        fallback_languages:
+            fr: de
 
 framework:
     cache:

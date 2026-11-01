@@ -1,0 +1,253 @@
+# Demo content for `bin/console app:demo:install`.
+# Campus Zentralschweiz is a fictional school. All names and addresses are made up.
+
+locations:
+    luzern:
+        name: Campus Luzern
+        city: Luzern
+        address: "Seeweg 12\n6003 Luzern"
+    zug:
+        name: Campus Zug
+        city: Zug
+        address: "Bahnhofplatz 4\n6300 Zug"
+    zuerich:
+        name: Campus Zürich
+        city: Zürich
+        address: "Limmatquai 88\n8001 Zürich"
+    bern:
+        name: Campus Bern
+        city: Bern
+        address: "Aareweg 21\n3011 Bern"
+
+courses:
+    web-entwicklung:
+        category: it
+        format: part-time
+        durationSemesters: 6
+        price: 19800
+        start: first monday of +2 months
+        featured: true
+        locations: [luzern, zuerich, bern]
+        de:
+            title: Web-Entwicklung HF
+            teaser: Moderne Websites und Webanwendungen bauen, vom sauberen HTML bis zur API.
+            description: |
+                <p>Du lernst, wie aus einer Idee eine schnelle, barrierefreie und sichere Webanwendung wird.</p>
+                <ul>
+                    <li>HTML, CSS und JavaScript nach aktuellen Standards</li>
+                    <li>PHP, Symfony und Datenbanken</li>
+                    <li>Barrierefreiheit, Performance und Sicherheit</li>
+                </ul>
+        fr:
+            title: Développement web ES
+            teaser: Créer des sites et des applications web modernes, du HTML propre jusqu'à l'API.
+            description: |
+                <p>Tu apprends à transformer une idée en une application web rapide, accessible et sûre.</p>
+                <ul>
+                    <li>HTML, CSS et JavaScript selon les standards actuels</li>
+                    <li>PHP, Symfony et bases de données</li>
+                    <li>Accessibilité, performance et sécurité</li>
+                </ul>
+
+    informatik:
+        category: it
+        format: part-time
+        durationSemesters: 6
+        price: 21600
+        start: first monday of +3 months
+        featured: true
+        locations: [luzern, zug, zuerich, bern]
+        de:
+            title: Informatik HF
+            teaser: Software entwickeln, Systeme betreiben und IT-Projekte leiten.
+            description: |
+                <p>Die Weiterbildung verbindet Softwareentwicklung mit Betrieb und Projektleitung.</p>
+                <ul>
+                    <li>Programmieren und Software-Architektur</li>
+                    <li>Netzwerke, Cloud und Betrieb</li>
+                    <li>Agile Projektleitung</li>
+                </ul>
+        fr:
+            title: Informatique ES
+            teaser: Développer des logiciels, exploiter des systèmes et diriger des projets informatiques.
+            description: |
+                <p>La formation réunit le développement logiciel, l'exploitation et la gestion de projet.</p>
+                <ul>
+                    <li>Programmation et architecture logicielle</li>
+                    <li>Réseaux, cloud et exploitation</li>
+                    <li>Gestion de projet agile</li>
+                </ul>
+
+    cyber-security:
+        category: it
+        format: part-time
+        durationSemesters: 2
+        price: 8900
+        start: first monday of +1 month
+        featured: false
+        locations: [zug, zuerich]
+        de:
+            title: Cyber Security Specialist
+            teaser: Angriffe erkennen, Systeme absichern und im Ernstfall richtig reagieren.
+            description: |
+                <p>Du lernst die häufigsten Angriffe kennen und schützt Systeme und Daten wirksam.</p>
+                <ul>
+                    <li>Bedrohungen und Schwachstellen analysieren</li>
+                    <li>Netzwerke und Anwendungen absichern</li>
+                    <li>Vorfälle erkennen und behandeln</li>
+                </ul>
+        fr:
+            title: Spécialiste en cybersécurité
+            teaser: Détecter les attaques, sécuriser les systèmes et réagir correctement en cas d'incident.
+            description: |
+                <p>Tu découvres les attaques les plus fréquentes et protèges efficacement les systèmes et les données.</p>
+                <ul>
+                    <li>Analyser les menaces et les vulnérabilités</li>
+                    <li>Sécuriser les réseaux et les applications</li>
+                    <li>Détecter et traiter les incidents</li>
+                </ul>
+
+    elektrotechnik:
+        category: engineering
+        format: part-time
+        durationSemesters: 6
+        price: 20400
+        start: first monday of +3 months
+        featured: false
+        locations: [luzern, bern]
+        de:
+            title: Elektrotechnik HF
+            teaser: Elektrische Anlagen planen, Steuerungen entwickeln und Energie effizient nutzen.
+            description: |
+                <p>Die Weiterbildung bereitet dich auf Fach- und Führungsaufgaben in der Elektrotechnik vor.</p>
+                <ul>
+                    <li>Energietechnik und Automation</li>
+                    <li>Steuerungs- und Regelungstechnik</li>
+                    <li>Projektierung von Anlagen</li>
+                </ul>
+        fr:
+            title: Électrotechnique ES
+            teaser: Planifier des installations électriques, développer des commandes et utiliser l'énergie efficacement.
+            description: |
+                <p>La formation te prépare aux tâches techniques et de conduite en électrotechnique.</p>
+                <ul>
+                    <li>Technique énergétique et automation</li>
+                    <li>Technique de commande et de régulation</li>
+                    <li>Planification d'installations</li>
+                </ul>
+
+    maschinenbau:
+        category: engineering
+        format: part-time
+        durationSemesters: 6
+        price: 20400
+        start: first monday of +4 months
+        featured: false
+        locations: [luzern, zug]
+        de:
+            title: Maschinenbau HF
+            teaser: Maschinen konstruieren, Fertigung optimieren und Produkte zur Serienreife bringen.
+            description: |
+                <p>Du verbindest Konstruktion, Fertigung und Projektleitung in einer praxisnahen Weiterbildung.</p>
+                <ul>
+                    <li>Konstruktion und CAD</li>
+                    <li>Werkstoffe und Fertigungsverfahren</li>
+                    <li>Produktentwicklung im Team</li>
+                </ul>
+        fr:
+            title: Génie mécanique ES
+            teaser: Concevoir des machines, optimiser la production et amener les produits à la série.
+            description: |
+                <p>Tu relies conception, production et gestion de projet dans une formation proche de la pratique.</p>
+                <ul>
+                    <li>Conception et CAO</li>
+                    <li>Matériaux et procédés de fabrication</li>
+                    <li>Développement de produits en équipe</li>
+                </ul>
+
+    betriebswirtschaft:
+        category: business
+        format: part-time
+        durationSemesters: 6
+        price: 19200
+        start: first monday of +2 months
+        featured: true
+        locations: [luzern, zug, zuerich, bern]
+        de:
+            title: Betriebswirtschaft HF
+            teaser: Unternehmen verstehen, Prozesse gestalten und Verantwortung übernehmen.
+            description: |
+                <p>Die Weiterbildung vermittelt das Wissen für Führungsaufgaben in KMU und grossen Unternehmen.</p>
+                <ul>
+                    <li>Finanzen und Rechnungswesen</li>
+                    <li>Marketing und Verkauf</li>
+                    <li>Führung und Organisation</li>
+                </ul>
+        fr:
+            title: Économie d'entreprise ES
+            teaser: Comprendre l'entreprise, organiser les processus et prendre des responsabilités.
+            description: |
+                <p>La formation transmet les connaissances pour des fonctions de conduite dans les PME et les grandes entreprises.</p>
+                <ul>
+                    <li>Finances et comptabilité</li>
+                    <li>Marketing et vente</li>
+                    <li>Conduite et organisation</li>
+                </ul>
+
+    projektmanagement:
+        category: business
+        format: part-time
+        durationSemesters: 2
+        price: 6400
+        start: first monday of +1 month
+        featured: false
+        locations: [zuerich, bern]
+        de:
+            title: Projektmanagement
+            teaser: Projekte sicher planen, steuern und abschliessen, klassisch und agil.
+            description: |
+                <p>Du lernst Methoden, mit denen Projekte im Zeitplan und im Budget bleiben.</p>
+                <ul>
+                    <li>Planung, Risiken und Controlling</li>
+                    <li>Scrum und Kanban</li>
+                    <li>Kommunikation mit Stakeholdern</li>
+                </ul>
+        fr:
+            title: Gestion de projet
+            teaser: Planifier, piloter et clôturer des projets avec sûreté, de manière classique et agile.
+            description: |
+                <p>Tu apprends des méthodes qui gardent les projets dans les délais et le budget.</p>
+                <ul>
+                    <li>Planification, risques et controlling</li>
+                    <li>Scrum et Kanban</li>
+                    <li>Communication avec les parties prenantes</li>
+                </ul>
+
+    ux-design:
+        category: design
+        format: full-time
+        durationSemesters: 2
+        price: 9800
+        start: first monday of +2 months
+        featured: false
+        locations: [zuerich]
+        de:
+            title: UX/UI Design
+            teaser: Digitale Produkte gestalten, die Menschen gerne und ohne Hürden nutzen.
+            description: |
+                <p>Vom Nutzerinterview bis zum klickbaren Prototyp: Du gestaltest nutzerzentriert.</p>
+                <ul>
+                    <li>User Research und Personas</li>
+                    <li>Interaktionsdesign und Prototyping</li>
+                    <li>Design-Systeme und Barrierefreiheit</li>
+                </ul>
+        fr:
+            title: Design UX/UI
+            teaser: Concevoir des produits numériques que les gens utilisent volontiers et sans obstacles.
+            description: |
+                <p>De l'entretien utilisateur au prototype cliquable : tu conçois en plaçant l'utilisateur au centre.</p>
+                <ul>
+                    <li>Recherche utilisateur et personas</li>
+                    <li>Design d'interaction et prototypage</li>
+                    <li>Systèmes de design et accessibilité</li>
+                </ul>

@@ -96,6 +96,8 @@ services:
                 condition: service_healthy
         volumes:
             - opendxp-test-var:/var/www/html/var
+            # The test volume hides var/ of the project, so the class definitions are mounted on top.
+            - ./var/classes:/var/www/html/var/classes
             - opendxp-test-public-var:/var/www/html/public/var
 
 volumes:

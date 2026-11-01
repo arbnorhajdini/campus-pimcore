@@ -8,13 +8,12 @@ services:
         autoconfigure: true
         public: false
 
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Kernel.php'
+
     App\Controller\:
         resource: '../src/Controller'
         public: true
         tags: [ 'controller.service_arguments' ]
-
-    App\Command\:
-        resource: '../src/Command/*'
-        tags: [ 'console.command' ]
-
-    App\EventSubscriber\BundleSetupSubscriber: ~
