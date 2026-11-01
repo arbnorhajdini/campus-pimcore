@@ -3,6 +3,7 @@
 
 {# The detail page is a Symfony route, not a document. The course list stays active in the navigation. #}
 {% set coursesPage = opendxp_website_config('coursesPage', null, app.request.locale) %}
+{% set registrationPage = opendxp_website_config('registrationPage', null, app.request.locale) %}
 {% set navActive = coursesPage %}
 
 {% block title %}{{ course.title }} | {{ 'site.name'|trans }}{% endblock %}
@@ -90,6 +91,12 @@
                         </dd>
                     </div>
                 </dl>
+
+                {% if registrationPage %}
+                    <a class="button button--primary course-facts__cta" href="{{ registrationPage.fullPath }}?course={{ course.slug|url_encode }}">
+                        {{- 'course.register'|trans -}}
+                    </a>
+                {% endif %}
             </aside>
         </div>
     </article>

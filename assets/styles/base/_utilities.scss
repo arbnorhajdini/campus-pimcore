@@ -29,6 +29,10 @@
     }
 }
 
-.site-main:focus {
-    outline: none;
+.site-main {
+    flex: 1;
+
+    &:focus {
+        outline: none;
+    }
 }

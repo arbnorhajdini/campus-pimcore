@@ -33,6 +33,7 @@ course:
     facts: Auf einen Blick
     about: Worum es geht
     semesters: '{count, plural, one {# Semester} other {# Semester}}'
+    register: Jetzt anmelden
 
 filter:
     label: Kurse filtern
@@ -44,3 +45,24 @@ filter:
     reset: Filter zurücksetzen
     count: '{count, plural, =0 {Keine Kurse gefunden} one {# Kurs gefunden} other {# Kurse gefunden}}'
     empty: Für diese Auswahl gibt es zurzeit keine Kurse. Versuche eine andere Kategorie oder einen anderen Standort.
+
+registration:
+    group:
+        course: Kurs und Standort
+        person: Deine Angaben
+    course: Kurs
+    choose_course: Bitte wählen
+    location: Standort
+    choose_location: Bitte wählen
+    firstname: Vorname
+    lastname: Nachname
+    email: E-Mail
+    phone: Telefon
+    message: Nachricht
+    consent: Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anmeldung gespeichert werden.
+    optional: optional
+    submit: Anmeldung senden
+    error_summary: Bitte prüfe deine Angaben
+    success:
+        title: Vielen Dank für deine Anmeldung
+        text: Wir haben deine Anmeldung für {course} erhalten und melden uns in den nächsten Tagen bei dir.

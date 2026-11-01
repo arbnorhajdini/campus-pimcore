@@ -17,7 +17,7 @@ bis zu sauberem, barrierefreiem Frontend in Twig und SCSS.
 - [x] Kursübersicht mit Filter nach Standort und Kategorie, Kursdetailseite
 - [x] Deutsch und Französisch, mit Sprachumschalter und hreflang
 - [x] Startseite aus Areabricks: Hero, Kurse im Fokus, Text mit Bild, FAQ
-- [ ] Anmeldeformular mit Validierung und barrierefreien Fehlermeldungen
+- [x] Anmeldeformular mit Validierung und barrierefreien Fehlermeldungen
 - [x] Tests und statische Analyse
 - [ ] CI mit GitHub Actions
 
@@ -72,6 +72,7 @@ Die Kursbilder sind generierte Farbverläufe, damit das Repo keine Fotos mit unk
 | Start         | `/de`                       | `/fr`                       | Dokument aus Areabricks                  |
 | Kursübersicht | `/de/kurse`                 | `/fr/cours`                 | Dokument, Controller lädt die Kurse      |
 | Kursdetail    | `/de/kurse/web-entwicklung` | `/fr/cours/web-entwicklung` | Symfony-Route mit einem Pfad pro Sprache |
+| Anmeldung     | `/de/anmeldung`             | `/fr/inscription`           | Dokument mit Symfony-Formular            |
 
 `/` leitet auf die Sprache weiter, die der Browser bevorzugt. Die Seiten beider Sprachen sind in OpenDXP als
 Übersetzungen verknüpft, der Sprachumschalter führt deshalb immer auf dieselbe Seite in der anderen Sprache.
@@ -88,6 +89,22 @@ Jeder Brick ist eine Klasse in [`src/Document/Areabrick/`](src/Document/Areabric
 | Kurse im Fokus     | Lädt in `action()` die Kurse mit dem Häkchen „Auf der Startseite hervorheben“  |
 | Text mit Bild      | Überschrift, WYSIWYG-Text, Bild mit Thumbnail, Position links oder rechts      |
 | Häufige Fragen     | Block mit beliebig vielen Fragen, als `<details>` ohne JavaScript aufklappbar   |
+
+## Anmeldeformular
+
+Ein Symfony-Formular ([`RegistrationType`](src/Form/RegistrationType.php)) mit den Regeln im Daten-Objekt
+[`RegistrationData`](src/Registration/RegistrationData.php). Eine gültige Anmeldung wird als Data Object in
+`/Anmeldungen` gespeichert, wo die Schule sie im Admin sieht.
+
+- **Validierung auf dem Server**, mit verständlichen Meldungen in DE und FR. Eine eigene Regel prüft, ob der Kurs
+  am gewählten Standort stattfindet.
+- **Fehlerübersicht** oben im Formular, jeder Fehler ein Link zu seinem Feld. Sie bekommt nach dem Absenden den Fokus.
+  Die Felder sind über `aria-describedby` mit ihrer Meldung verknüpft und tragen `aria-invalid`.
+- **Optionale Felder sind markiert**, statt Pflichtfelder mit Sternchen zu versehen.
+- **JavaScript als Verbesserung:** Nach der Kurswahl bietet das Standortfeld nur noch die Standorte dieses Kurses an.
+  Ohne JavaScript funktioniert das Formular genauso, der Server prüft dann.
+- **CSRF-Schutz**, Status 422 bei Fehlern und Redirect nach dem Speichern, damit ein Neuladen nichts doppelt sendet.
+- Der Button „Jetzt anmelden“ auf der Kursseite wählt den Kurs im Formular schon aus.
 
 ## Frontend
 

@@ -42,6 +42,14 @@ pages:
             editables:
                 headline: { type: input, data: "Unsere Weiterbildungen" }
                 intro: { type: wysiwyg, data: "<p>Finde die Weiterbildung, die zu dir passt. Filtere nach Kategorie oder Standort.</p>" }
+        registration:
+            key: anmeldung
+            navigation: Anmeldung
+            title: Anmeldung | Campus Zentralschweiz
+            description: Melde dich für eine Weiterbildung an. Wir melden uns innerhalb weniger Tage bei dir.
+            editables:
+                headline: { type: input, data: "Anmeldung" }
+                intro: { type: wysiwyg, data: "<p>Wähle Kurs und Standort und hinterlasse deine Kontaktdaten. Die Anmeldung ist unverbindlich, wir melden uns innerhalb weniger Tage bei dir.</p>" }
     fr:
         home:
             title: Campus Zentralschweiz | Formation continue à Lucerne, Zoug, Zurich et Berne
@@ -80,6 +88,14 @@ pages:
             editables:
                 headline: { type: input, data: "Nos formations" }
                 intro: { type: wysiwyg, data: "<p>Trouve la formation qui te convient. Filtre par catégorie ou par site.</p>" }
+        registration:
+            key: inscription
+            navigation: Inscription
+            title: Inscription | Campus Zentralschweiz
+            description: Inscris-toi à une formation. Nous te contactons dans les prochains jours.
+            editables:
+                headline: { type: input, data: "Inscription" }
+                intro: { type: wysiwyg, data: "<p>Choisis le cours et le site et laisse tes coordonnées. L'inscription est sans engagement, nous te contactons dans les prochains jours.</p>" }
 
 locations:
     luzern:

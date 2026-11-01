@@ -1,0 +1,17 @@
+registration:
+    course:
+        required: Merci de choisir un cours.
+    location:
+        required: Merci de choisir un site.
+        not_offered: Ce cours n'a pas lieu sur ce site. Merci de choisir un autre site.
+    firstname:
+        required: Merci d'indiquer ton prénom.
+    lastname:
+        required: Merci d'indiquer ton nom.
+    email:
+        required: Merci d'indiquer ton adresse e-mail.
+        invalid: Merci d'indiquer une adresse e-mail valide, par exemple nom@exemple.ch.
+    phone:
+        invalid: Le numéro de téléphone ne peut contenir que des chiffres, des espaces et les caractères + ( ) / -.
+    consent:
+        required: Merci de confirmer que nous pouvons enregistrer tes données.

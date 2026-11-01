@@ -1,0 +1,87 @@
+.form-field {
+    display: grid;
+    gap: var(--space-2);
+
+    &__label {
+        font-weight: 600;
+    }
+
+    &__optional {
+        font-weight: 400;
+        color: var(--color-muted);
+    }
+
+    &__input {
+        width: 100%;
+        min-height: 2.75rem;
+        padding: var(--space-2) var(--space-3);
+        color: var(--color-ink);
+        background: var(--color-background);
+        border: 1px solid var(--color-muted);
+        border-radius: var(--radius-small);
+    }
+
+    textarea.form-field__input {
+        resize: vertical;
+    }
+
+    // The error is marked by text and a thick border, never by color alone.
+    &__error {
+        font-weight: 600;
+        color: var(--color-error);
+    }
+
+    &--invalid &__input,
+    &--invalid &__checkbox {
+        border: 2px solid var(--color-error);
+    }
+
+    &__check {
+        display: flex;
+        gap: var(--space-3);
+        align-items: flex-start;
+
+        .form-field__label {
+            font-weight: 400;
+        }
+    }
+
+    &__checkbox {
+        flex-shrink: 0;
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-top: 0.2rem;
+        accent-color: var(--color-primary);
+    }
+}
+
+.notice {
+    padding: var(--space-5);
+    margin-bottom: var(--space-6);
+    border-left: 6px solid;
+    border-radius: var(--radius-small);
+
+    &--success {
+        background: var(--color-business-soft);
+        border-color: var(--color-business);
+    }
+
+    &--error {
+        background: var(--color-error-soft);
+        border-color: var(--color-error);
+    }
+
+    &__title {
+        margin-bottom: var(--space-2);
+        font-size: var(--font-size-h3);
+    }
+
+    &__list {
+        padding-left: var(--space-5);
+
+        a {
+            font-weight: 600;
+            color: var(--color-error);
+        }
+    }
+}

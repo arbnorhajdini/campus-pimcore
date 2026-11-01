@@ -1,0 +1,39 @@
+{#
+    Form theme with BEM classes. Symfony already links the errors to the field with aria-describedby
+    and sets aria-invalid, see form_row in form_div_layout.html.twig. This theme keeps that and only changes the markup.
+#}
+{% extends 'form_div_layout.html.twig' %}
+
+{%- block form_row_render -%}
+    <div class="form-field{{ errors|length ? ' form-field--invalid' }}">
+        {{- form_label(form, null, {label_attr: {class: 'form-field__label'}}) -}}
+        {{- form_errors(form) -}}
+        {{- form_widget(form, widget_attr|merge({attr: widget_attr.attr|merge({class: 'form-field__input'})})) -}}
+    </div>
+{%- endblock form_row_render -%}
+
+{# The box comes before its label, as people expect it from a checkbox. #}
+{%- block checkbox_row -%}
+    {%- set attr = errors|length ? {'aria-describedby': id ~ '_error1', 'aria-invalid': 'true'} : {} -%}
+    <div class="form-field form-field--checkbox{{ errors|length ? ' form-field--invalid' }}">
+        {{- form_errors(form) -}}
+        <div class="form-field__check">
+            {{- form_widget(form, {attr: attr|merge({class: 'form-field__checkbox'})}) -}}
+            {{- form_label(form, null, {label_attr: {class: 'form-field__label'}}) -}}
+        </div>
+    </div>
+{%- endblock checkbox_row -%}
+
+{# Optional fields say so, instead of marking the required ones with an asterisk. #}
+{%- block form_label_content -%}
+    {{- parent() -}}
+    {%- if not required -%}
+        <span class="form-field__optional"> ({{ 'registration.optional'|trans }})</span>
+    {%- endif -%}
+{%- endblock form_label_content -%}
+
+{%- block form_errors -%}
+    {%- for error in errors -%}
+        <p class="form-field__error" id="{{ id ~ '_error' ~ loop.index }}">{{ error.message }}</p>
+    {%- endfor -%}
+{%- endblock form_errors -%}

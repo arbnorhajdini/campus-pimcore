@@ -6,7 +6,9 @@ namespace App\Command;
 
 use App\Controller\CourseController;
 use App\Controller\DefaultController;
+use App\Controller\RegistrationController;
 use App\Demo\DemoImageGenerator;
+use App\Registration\RegistrationRecorder;
 use Carbon\Carbon;
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\DataObject;
@@ -30,6 +32,14 @@ use Symfony\Component\Yaml\Yaml;
 final class DemoInstallCommand extends Command
 {
     private const array LANGUAGES = ['de', 'fr'];
+
+    private const string HOME_CONTROLLER = DefaultController::class . '::homeAction';
+
+    /** The pages below the start page of every language, with the website setting that points to them. */
+    private const array SUBPAGES = [
+        'courses' => ['controller' => CourseController::class . '::listAction', 'setting' => 'coursesPage'],
+        'registration' => ['controller' => RegistrationController::class . '::formAction', 'setting' => 'registrationPage'],
+    ];
 
     public function __construct(
         private readonly DemoImageGenerator $images,
@@ -55,7 +65,7 @@ final class DemoInstallCommand extends Command
         $courses = $this->installCourses($fixtures['courses'], $locations);
         $io->writeln(sprintf('%d courses', count($courses)));
 
-        DataObject\Service::createFolderByPath('/Anmeldungen');
+        DataObject\Service::createFolderByPath(RegistrationRecorder::FOLDER);
 
         $io->success('Demo content installed.');
 
@@ -63,8 +73,8 @@ final class DemoInstallCommand extends Command
     }
 
     /**
-     * Creates /de and /fr with their course list, links them as translations
-     * and stores the course list per language as the website setting coursesPage.
+     * Creates /de and /fr with their subpages, links them as translations
+     * and stores every subpage per language as a website setting, like coursesPage.
      *
      * @param array<string, array<string, array<string, mixed>>> $fixtures
      */
@@ -78,21 +88,27 @@ final class DemoInstallCommand extends Command
         $sources = [];
 
         foreach ($fixtures as $language => $pages) {
-            $home = $this->installPage($root, $language, $pages['home'], DefaultController::class . '::homeAction');
-            $courses = $this->installPage($home, $pages['courses']['key'], $pages['courses'], CourseController::class . '::listAction');
-            $this->installWebsiteSetting('coursesPage', $courses, $language);
+            $home = $this->installPage($root, $language, $pages['home'], self::HOME_CONTROLLER);
+            $installed = ['home' => $home];
 
-            // The bricks link to the course list, so they are filled once it exists.
+            foreach (self::SUBPAGES as $name => $subpage) {
+                $installed[$name] = $this->installPage($home, $pages[$name]['key'], $pages[$name], $subpage['controller']);
+                $this->installWebsiteSetting($subpage['setting'], $installed[$name], $language);
+            }
+
+            // The bricks link to the subpages, so they are filled once those exist.
             $this->setEditables($home, $this->brickEditables('content', $pages['home']['bricks']));
             $home->setProperty('language', 'text', $language, false, true);
             $home->save();
 
             // The first language is the source, every other language is linked to it.
             if ($sources === []) {
-                $sources = ['home' => $home, 'courses' => $courses];
-            } else {
-                $documentService->addTranslation($sources['home'], $home, $language);
-                $documentService->addTranslation($sources['courses'], $courses, $language);
+                $sources = $installed;
+
+                continue;
+            }
+            foreach ($installed as $name => $document) {
+                $documentService->addTranslation($sources[$name], $document, $language);
             }
         }
     }

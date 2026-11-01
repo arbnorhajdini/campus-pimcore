@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Controller\CourseController;
 use App\Controller\DefaultController;
+use App\Controller\RegistrationController;
 use OpenDxp\Model\Document\Editable;
 use OpenDxp\Model\Document\Page;
 use OpenDxp\Test\Document\Brick;
@@ -28,6 +29,15 @@ function courseList(Page $languageRoot, string $key): Page
         ->withParent($languageRoot)
         ->with(['key' => $key])
         ->withController(CourseController::class, 'listAction')
+        ->create();
+}
+
+function registrationPage(Page $languageRoot, string $key): Page
+{
+    return DocumentPageFactory::new()
+        ->withParent($languageRoot)
+        ->with(['key' => $key])
+        ->withController(RegistrationController::class, 'formAction')
         ->create();
 }
 

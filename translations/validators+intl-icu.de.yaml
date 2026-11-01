@@ -1,0 +1,17 @@
+registration:
+    course:
+        required: Bitte wähle einen Kurs.
+    location:
+        required: Bitte wähle einen Standort.
+        not_offered: Dieser Kurs findet an diesem Standort nicht statt. Bitte wähle einen anderen Standort.
+    firstname:
+        required: Bitte gib deinen Vornamen ein.
+    lastname:
+        required: Bitte gib deinen Nachnamen ein.
+    email:
+        required: Bitte gib deine E-Mail-Adresse ein.
+        invalid: Bitte gib eine gültige E-Mail-Adresse ein, zum Beispiel name@beispiel.ch.
+    phone:
+        invalid: Die Telefonnummer darf nur Ziffern, Leerzeichen und die Zeichen + ( ) / - enthalten.
+    consent:
+        required: Bitte bestätige, dass wir deine Angaben speichern dürfen.

@@ -1,0 +1,63 @@
+{% extends 'layouts/base.html.twig' %}
+{% form_theme form 'form/theme.html.twig' %}
+
+{% block content %}
+    <div class="container page">
+        <div class="registration">
+            <header class="page-header">
+                <h1 class="page-header__title">{{ opendxp_input('headline', {placeholder: 'Überschrift'}) }}</h1>
+                <div class="page-header__intro rich-text">{{ opendxp_wysiwyg('intro', {placeholder: 'Einleitung'}) }}</div>
+            </header>
+
+            {% for course in app.flashes('registration') %}
+                {# The confirmation replaces the form. The script moves the focus here, so screen readers read it. #}
+                <div class="notice notice--success" role="status" tabindex="-1" data-focus-on-load>
+                    <h2 class="notice__title">{{ 'registration.success.title'|trans }}</h2>
+                    <p>{{ 'registration.success.text'|trans({course: course}) }}</p>
+                </div>
+            {% else %}
+                {% if form.vars.submitted and not form.vars.valid %}
+                    {# Every error once at the top, each a link to its field. #}
+                    <div class="notice notice--error" role="alert" tabindex="-1" data-focus-on-load>
+                        <h2 class="notice__title">{{ 'registration.error_summary'|trans }}</h2>
+                        <ul class="notice__list">
+                            {% for error in form.vars.errors %}
+                                <li>{{ error.message }}</li>
+                            {% endfor %}
+                            {% for field in form %}
+                                {% for error in field.vars.errors %}
+                                    <li><a href="#{{ field.vars.id }}">{{ error.message }}</a></li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                {{ form_start(form, {attr: {class: 'registration-form'}}) }}
+                    <fieldset class="registration-form__group">
+                        <legend class="registration-form__legend">{{ 'registration.group.course'|trans }}</legend>
+                        {{ form_row(form.course) }}
+                        {{ form_row(form.location) }}
+                    </fieldset>
+
+                    <fieldset class="registration-form__group">
+                        <legend class="registration-form__legend">{{ 'registration.group.person'|trans }}</legend>
+                        <div class="registration-form__columns">
+                            {{ form_row(form.firstname) }}
+                            {{ form_row(form.lastname) }}
+                        </div>
+                        <div class="registration-form__columns">
+                            {{ form_row(form.email) }}
+                            {{ form_row(form.phone) }}
+                        </div>
+                        {{ form_row(form.message) }}
+                    </fieldset>
+
+                    {{ form_row(form.consent) }}
+
+                    <button class="button button--primary button--large" type="submit">{{ 'registration.submit'|trans }}</button>
+                {{ form_end(form) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
