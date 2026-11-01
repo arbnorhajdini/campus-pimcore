@@ -7,7 +7,6 @@ namespace App\Command;
 use App\Controller\CourseController;
 use App\Controller\DefaultController;
 use App\Controller\RegistrationController;
-use App\Demo\DemoImageGenerator;
 use App\Registration\RegistrationRecorder;
 use Carbon\Carbon;
 use OpenDxp\Model\Asset;
@@ -41,10 +40,14 @@ final class DemoInstallCommand extends Command
         'registration' => ['controller' => RegistrationController::class . '::formAction', 'setting' => 'registrationPage'],
     ];
 
+    /** @var array<string, array{photographer: string, source: string}> */
+    private array $imageCredits = [];
+
     public function __construct(
-        private readonly DemoImageGenerator $images,
         #[Autowire('%kernel.project_dir%/fixtures/demo.yaml')]
         private readonly string $fixtureFile,
+        #[Autowire('%kernel.project_dir%/fixtures/images')]
+        private readonly string $imageDirectory,
     ) {
         parent::__construct();
     }
@@ -53,8 +56,9 @@ final class DemoInstallCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        /** @var array{pages: array<string, array<string, array<string, mixed>>>, locations: array<string, array<string, string>>, courses: array<string, array<string, mixed>>} $fixtures */
+        /** @var array{images: array<string, array{photographer: string, source: string}>, pages: array<string, array<string, array<string, mixed>>>, locations: array<string, array<string, string>>, courses: array<string, array<string, mixed>>} $fixtures */
         $fixtures = Yaml::parseFile($this->fixtureFile);
+        $this->imageCredits = $fixtures['images'];
 
         $this->installPages($fixtures['pages']);
         $io->writeln(sprintf('%d languages with pages', count($fixtures['pages'])));
@@ -149,7 +153,7 @@ final class DemoInstallCommand extends Command
         foreach ($editables as $name => $editable) {
             $data = $editable['data'];
             if ($editable['type'] === 'image') {
-                $data = ['id' => $this->installImage('/Seiten', $data['asset'], 'business')->getId()];
+                $data = ['id' => $this->installImage('/Seiten', $data['asset'])->getId()];
             }
 
             $page->setRawEditable($name, $editable['type'], $data);
@@ -249,7 +253,7 @@ final class DemoInstallCommand extends Command
             $course->setStartDate(Carbon::parse($data['start']));
             $course->setFeatured($data['featured']);
             $course->setLocations(array_map(fn (string $key) => $locations[$key], $data['locations']));
-            $course->setImage($this->installImage('/Kurse', $slug, $data['category']));
+            $course->setImage($this->installImage('/Kurse', $slug));
 
             foreach (self::LANGUAGES as $language) {
                 $course->setTitle($data[$language]['title'], $language);
@@ -266,19 +270,31 @@ final class DemoInstallCommand extends Command
         return $courses;
     }
 
-    private function installImage(string $folderPath, string $name, string $category): Asset\Image
+    /**
+     * Imports a photo from fixtures/images and stores its credit as the copyright metadata of the asset,
+     * where editors see it in the admin. An existing asset only gets the file again when the photo changed.
+     */
+    private function installImage(string $folderPath, string $name): Asset\Image
     {
-        $filename = "{$name}.jpg";
-        $existing = Asset\Image::getByPath("{$folderPath}/{$filename}");
-        if ($existing instanceof Asset\Image) {
-            return $existing;
+        $file = "{$this->imageDirectory}/{$name}.jpg";
+        $data = file_get_contents($file);
+        if ($data === false) {
+            throw new RuntimeException("The photo {$file} is missing.");
         }
 
-        $folder = Asset\Service::createFolderByPath($folderPath);
-        $image = new Asset\Image();
-        $image->setParent($folder);
-        $image->setFilename($filename);
-        $image->setData($this->images->generate($category, $name));
+        $image = Asset\Image::getByPath("{$folderPath}/{$name}.jpg");
+        if (!$image instanceof Asset\Image) {
+            $image = new Asset\Image();
+            $image->setParent(Asset\Service::createFolderByPath($folderPath));
+            $image->setFilename("{$name}.jpg");
+        }
+
+        if ($image->getId() === null || $image->getData() !== $data) {
+            $image->setData($data);
+        }
+
+        $credit = $this->imageCredits[$name] ?? throw new RuntimeException("The photo {$name} has no credit in the fixtures.");
+        $image->addMetadata('copyright', 'input', "{$credit['photographer']} / Pexels");
         $image->save();
 
         return $image;

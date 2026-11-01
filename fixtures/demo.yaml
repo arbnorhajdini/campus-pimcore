@@ -1,6 +1,19 @@
 # Demo content for `bin/console app:demo:install`.
 # Campus Zentralschweiz is a fictional school. All names and addresses are made up.
 
+# Photos in fixtures/images, all from Pexels under the Pexels license (https://www.pexels.com/license/).
+# The command stores the photographer as the copyright metadata of the asset.
+images:
+    web-entwicklung: { photographer: Daniil Komov, source: "https://www.pexels.com/photo/modern-laptop-displaying-code-in-cozy-workspace-34803986/" }
+    informatik: { photographer: Mikhail Nilov, source: "https://www.pexels.com/photo/men-working-on-a-computer-7988742/" }
+    cyber-security: { photographer: Brett Sayles, source: "https://www.pexels.com/photo/close-up-photo-of-cables-plugged-into-the-server-2881233/" }
+    elektrotechnik: { photographer: mickael ange konan, source: "https://www.pexels.com/photo/female-technician-working-on-electrical-control-panel-34526423/" }
+    maschinenbau: { photographer: Daniel Smyth, source: "https://www.pexels.com/photo/close-up-shot-of-a-cnc-machine-8865187/" }
+    betriebswirtschaft: { photographer: Yan Krukau, source: "https://www.pexels.com/photo/businesspeople-brainstorming-in-a-meeting-7693692/" }
+    projektmanagement: { photographer: cottonbro studio, source: "https://www.pexels.com/photo/project-manager-planning-tasks-6804091/" }
+    ux-design: { photographer: picjumbo.com, source: "https://www.pexels.com/photo/notebook-beside-the-iphone-on-table-196644/" }
+    campus: { photographer: Kampus Production, source: "https://www.pexels.com/photo/multiracial-students-sitting-together-and-listening-to-classmate-5940846/" }
+
 # One document tree per language. The pages of both trees are linked as translations.
 # The start page is built from bricks. A link points to a page by its path, an image to a generated asset by its name.
 pages:

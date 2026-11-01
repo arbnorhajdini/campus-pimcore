@@ -68,7 +68,8 @@ Die Klassen liegen als Definition in [`var/classes/`](var/classes) und werden be
 | `Registration` | Kurs, Standort, Vorname, Nachname, E-Mail, Telefon, Nachricht, Sprache                       |
 
 Die Demo-Inhalte stehen in [`fixtures/demo.yaml`](fixtures/demo.yaml). `make demo` legt sie an oder aktualisiert sie.
-Die Kursbilder sind generierte Farbverläufe, damit das Repo keine Fotos mit unklarer Lizenz enthält.
+Die Fotos liegen in [`fixtures/images/`](fixtures/images). Der Demo-Befehl importiert sie als Assets und trägt den
+Fotografen als Copyright-Metadatum ein, siehe [Bildnachweis](#bildnachweis).
 
 ## Seiten
 
@@ -191,7 +192,24 @@ Was dabei in Reviews, im Browser und in den Tests aufgefallen ist und korrigiert
 - Einen Bereich „Mein Campus“ mit Login und Rollen für Teilnehmende und Dozierende
 - Übersetzte Ortsnamen (Lucerne, Zoug, Zurich, Berne)
 
+## Bildnachweis
+
+Alle Fotos stammen von [Pexels](https://www.pexels.com) und stehen unter der [Pexels-Lizenz](https://www.pexels.com/license/).
+
+| Foto                  | Fotograf                                                                                                              |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Web-Entwicklung       | [Daniil Komov](https://www.pexels.com/photo/modern-laptop-displaying-code-in-cozy-workspace-34803986/)                |
+| Informatik            | [Mikhail Nilov](https://www.pexels.com/photo/men-working-on-a-computer-7988742/)                                      |
+| Cyber Security        | [Brett Sayles](https://www.pexels.com/photo/close-up-photo-of-cables-plugged-into-the-server-2881233/)                |
+| Elektrotechnik        | [mickael ange konan](https://www.pexels.com/photo/female-technician-working-on-electrical-control-panel-34526423/)    |
+| Maschinenbau          | [Daniel Smyth](https://www.pexels.com/photo/close-up-shot-of-a-cnc-machine-8865187/)                                  |
+| Betriebswirtschaft    | [Yan Krukau](https://www.pexels.com/photo/businesspeople-brainstorming-in-a-meeting-7693692/)                         |
+| Projektmanagement     | [cottonbro studio](https://www.pexels.com/photo/project-manager-planning-tasks-6804091/)                              |
+| UX/UI Design          | [picjumbo.com](https://www.pexels.com/photo/notebook-beside-the-iphone-on-table-196644/)                              |
+| Lernen, wo du arbeitest | [Kampus Production](https://www.pexels.com/photo/multiracial-students-sitting-together-and-listening-to-classmate-5940846/) |
+
 ## Lizenz
 
-GPL-3.0, wie das [OpenDXP-Skeleton](https://github.com/open-dxp/skeleton), auf dem das Projekt aufbaut.
+Der Code steht unter GPL-3.0, wie das [OpenDXP-Skeleton](https://github.com/open-dxp/skeleton), auf dem das Projekt
+aufbaut. Für die Fotos gilt die Pexels-Lizenz.
 Siehe [LICENSE.md](LICENSE.md).
