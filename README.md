@@ -1,25 +1,30 @@
 # Campus Zentralschweiz
 
-Eine kleine Demo-Kursplattform für eine fiktive Weiterbildungsschule mit mehreren Standorten.
+[![CI](https://github.com/arbnorhajdini/campus-pimcore/actions/workflows/ci.yml/badge.svg)](https://github.com/arbnorhajdini/campus-pimcore/actions/workflows/ci.yml)
+
+Eine kleine Demo-Kursplattform für eine fiktive Weiterbildungsschule mit vier Standorten, auf Deutsch und Französisch.
 Gebaut mit OpenDXP (Pimcore), Symfony, Twig, SCSS und Vanilla JavaScript.
 
-> **Status:** im Aufbau. Die Checkliste unten zeigt, was schon fertig ist.
+![Startseite](docs/screenshots/start.png)
 
-## Worum es geht
+## Was das Projekt zeigt
 
-Das Projekt zeigt, wie ich ein Pimcore-Projekt aufbaue: von den Data Objects über Symfony-Controller
-bis zu sauberem, barrierefreiem Frontend in Twig und SCSS.
+- **Pimcore-Konzepte:** Data Objects mit übersetzbaren Feldern, Dokumente mit Editables, eine Startseite aus
+  Areabricks, Thumbnails, Website-Einstellungen und Dokumente, die als Übersetzungen verknüpft sind.
+- **Symfony:** Controller, übersetzte Routen, ein Formular mit Validierung, Services mit Dependency Injection.
+- **Frontend:** Twig mit Layout-Vererbung, Partials und Macros, SCSS mit BEM und Design-Tokens, Mobile First,
+  JavaScript als ES-Module ohne Bundler.
+- **Barrierefreiheit:** semantisches HTML, Tastaturbedienung, sichtbarer Fokus, verknüpfte Fehlermeldungen.
+- **Qualität:** Tests mit Pest, PHPStan, PHP-CS-Fixer und CI mit GitHub Actions. Mit `make setup` läuft das
+  Projekt in wenigen Minuten, inklusive Demo-Inhalten.
 
-- [x] OpenDXP mit Docker, Start mit einem Befehl
-- [x] Datenmodell: Kurse, Standorte, Anmeldungen als Data Objects
-- [x] Demo-Daten per Konsolenbefehl, damit die Seite nach dem Start nicht leer ist
-- [x] Layout mit Twig-Vererbung, SCSS-Grundgerüst (BEM, Mobile First)
-- [x] Kursübersicht mit Filter nach Standort und Kategorie, Kursdetailseite
-- [x] Deutsch und Französisch, mit Sprachumschalter und hreflang
-- [x] Startseite aus Areabricks: Hero, Kurse im Fokus, Text mit Bild, FAQ
-- [x] Anmeldeformular mit Validierung und barrierefreien Fehlermeldungen
-- [x] Tests und statische Analyse
-- [ ] CI mit GitHub Actions
+| Kursübersicht mit Filter | Kursdetail |
+| --- | --- |
+| ![Kursübersicht](docs/screenshots/kurse.png) | ![Kursdetail](docs/screenshots/kursdetail.png) |
+
+| Anmeldung mit Fehlerübersicht (FR) | Startseite im Editmodus des Admins |
+| --- | --- |
+| ![Anmeldung](docs/screenshots/anmeldung-fehler.png) | ![Admin](docs/screenshots/admin-editmode.png) |
 
 ## Warum OpenDXP
 
@@ -114,7 +119,9 @@ templates/
     partials/                   Header mit Navigation aus dem Dokumentbaum, Footer, Sprachumschalter
     components/                 Wiederverwendbare Teile wie die Kurskarte
     macros/format.html.twig     Datum und Preis im Format der Sprache
-    pages/, course/             Die Seiten
+    areas/                      Die Templates der Areabricks
+    form/theme.html.twig        Form-Theme mit BEM-Klassen
+    pages/, course/, registration/  Die Seiten
 assets/
     styles/                     SCSS: abstracts, base, layout, components, pages
     js/                         ES-Module ohne Bundler, über die Symfony AssetMapper
@@ -128,6 +135,8 @@ translations/                   Texte der Oberfläche in DE und FR (ICU, mit Plu
   `aria-current` in Navigation und Sprachumschalter, ausreichende Kontraste.
 - **Bilder:** OpenDXP erzeugt die Thumbnails als `<picture>` mit AVIF, WebP und JPEG, jeweils in 1x und 2x.
 - **Ohne JavaScript benutzbar:** Der Kursfilter ist ein normales GET-Formular, jede Auswahl hat ihre eigene URL.
+
+<img src="docs/screenshots/mobil.png" alt="Die Startseite auf dem Handy" width="300">
 
 ## Befehle
 
@@ -151,8 +160,34 @@ translations/                   Texte der Oberfläche in DE und FR (ICU, mit Plu
 | CMS       | OpenDXP 1.5 (Pimcore-Fork) auf Symfony 7.4           |
 | Backend   | PHP 8.3, MariaDB 10.11, Redis                        |
 | Frontend  | Twig, HTML, SCSS, Vanilla JavaScript (ES-Module), Symfony AssetMapper |
-| Qualität  | Pest, PHPStan, PHP-CS-Fixer                          |
+| Qualität  | Pest, PHPStan, PHP-CS-Fixer, GitHub Actions          |
 | Umgebung  | Docker Compose: PHP-FPM, Nginx, Supervisord          |
+
+## Wie ich mit KI gearbeitet habe
+
+Ich habe das Projekt mit Claude Code gebaut, deshalb steht Claude in den Commits als Co-Autor. Claude hat den
+Großteil des Codes geschrieben. Ich habe die Richtung vorgegeben, die Entscheidungen getroffen und die Ergebnisse
+geprüft. Den Output der KI behandle ich als Entwurf, nicht als fertige Lösung.
+
+Was dabei in Reviews, im Browser und in den Tests aufgefallen ist und korrigiert wurde:
+
+- **Lizenz:** Pimcore 2026 verlangt bei der Installation einen Produkt-Key. Deshalb OpenDXP, damit jeder das Projekt
+  ohne Registrierung startet.
+- **Secrets:** Das Skeleton schreibt einen Secret-Key in `services.yaml` und liefert eine Beispieldatei mit einem
+  Google-Schlüssel mit. Beides ist vor dem ersten Push aus der Historie entfernt, das zweite hat die Push Protection
+  von GitHub gemeldet.
+- **Sprachumschalter:** OpenDXP hängt an Symfony-Routen das nächste Dokument als Fallback. Der Umschalter führte
+  deshalb auf der Kursseite zur Kursübersicht statt zum Kurs in der anderen Sprache.
+- **Eingaben:** `?location=luzern` führte zu einem Fehler 400, statt den Filter zu ignorieren.
+- **Areabricks:** Der Hero ist auf einen pro Seite begrenzt, leere Bricks verschwinden, und weil das Link-Editable
+  alle gespeicherten Daten als HTML-Attribute ausgibt, baut das Template den Link selbst.
+
+## Was ich als Nächstes bauen würde
+
+- Bestätigungs-E-Mail an die Interessierten und Benachrichtigung an die Schule
+- Spamschutz für das Formular, zum Beispiel mit Honeypot und Symfony Rate Limiter
+- Einen Bereich „Mein Campus“ mit Login und Rollen für Teilnehmende und Dozierende
+- Übersetzte Ortsnamen (Lucerne, Zoug, Zurich, Berne)
 
 ## Lizenz
 
