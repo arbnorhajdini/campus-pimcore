@@ -33,7 +33,7 @@ final class DemoInstallCommand extends Command
 {
     private const array LANGUAGES = ['de', 'fr'];
 
-    private const string HOME_CONTROLLER = DefaultController::class . '::homeAction';
+    private const string HOME_CONTROLLER = DefaultController::class . '::defaultAction';
 
     /** The pages below the start page of every language, with the website setting that points to them. */
     private const array SUBPAGES = [

@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html.twig' %}
 
-{# Editors build the start page from bricks. Each brick is a class in src/Document/Areabrick and a template in areas/. #}
+{# Editors build the page from bricks. Each brick is a class in src/Document/Areabrick and a template in areas/. #}
 {% block content %}
     {{ opendxp_areablock('content', {
         allowed: ['hero', 'featured-courses', 'text-image', 'faq'],

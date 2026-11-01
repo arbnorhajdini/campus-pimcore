@@ -36,9 +36,9 @@
         border-radius: var(--radius-small);
     }
 
-    // Hamburger icon drawn with one element and two pseudo elements.
+    // Hamburger icon drawn with one element and two pseudo elements. Only shown when JavaScript runs.
     &__toggle {
-        display: grid;
+        display: none;
         place-items: center;
         width: 2.75rem;
         height: 2.75rem;
@@ -48,8 +48,12 @@
         border-radius: var(--radius-small);
         cursor: pointer;
 
-        @include respond(md) {
-            display: none;
+        .js & {
+            display: grid;
+
+            @include respond(md) {
+                display: none;
+            }
         }
     }
 
@@ -95,22 +99,25 @@
         }
     }
 
-    // Collapsed on small screens until the toggle opens it, always visible from md.
+    // With JavaScript collapsed on small screens until the toggle opens it, always visible from md.
     &__menu {
-        display: none;
         flex-basis: 100%;
         padding-block: var(--space-3) var(--space-5);
 
-        &.is-open {
-            display: block;
+        .js &:not(.is-open) {
+            display: none;
         }
 
         @include respond(md) {
-            display: flex;
             flex-basis: auto;
             gap: var(--space-6);
             align-items: center;
             padding: 0;
+
+            &,
+            .js &:not(.is-open) {
+                display: flex;
+            }
         }
     }
 }

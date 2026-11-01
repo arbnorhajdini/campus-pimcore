@@ -85,6 +85,7 @@ Die Kursbilder sind generierte Farbverläufe, damit das Repo keine Fotos mit unk
 ## Areabricks
 
 Die Startseite besteht aus Bausteinen, die Redakteure im Admin hinzufügen, verschieben und bearbeiten.
+Jede neue Seite, die ein Redakteur anlegt, nutzt dasselbe Template und dieselben Bausteine.
 Jeder Brick ist eine Klasse in [`src/Document/Areabrick/`](src/Document/Areabrick) und ein Template in
 [`templates/areas/`](templates/areas).
 
@@ -135,6 +136,7 @@ translations/                   Texte der Oberfläche in DE und FR (ICU, mit Plu
   `aria-current` in Navigation und Sprachumschalter, ausreichende Kontraste.
 - **Bilder:** OpenDXP erzeugt die Thumbnails als `<picture>` mit AVIF, WebP und JPEG, jeweils in 1x und 2x.
 - **Ohne JavaScript benutzbar:** Der Kursfilter ist ein normales GET-Formular, jede Auswahl hat ihre eigene URL.
+  Auf dem Handy bleibt das Menü ohne JavaScript offen, statt sich nicht mehr öffnen zu lassen.
 
 <img src="docs/screenshots/mobil.png" alt="Die Startseite auf dem Handy" width="300">
 

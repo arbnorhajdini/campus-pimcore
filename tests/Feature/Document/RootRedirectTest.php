@@ -15,6 +15,7 @@ it('sends the visitor to the language they prefer', function (string $acceptLang
     Browser::start()
         ->interceptRedirects()
         ->get('/', ['headers' => ['Accept-Language' => $acceptLanguage]])
+        ->assertHeaderContains('Vary', 'Accept-Language')
         ->assertRedirectedTo($target);
 })->with([
     'French' => ['fr-CH,fr;q=0.9', '/fr'],

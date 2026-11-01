@@ -6,6 +6,7 @@ namespace App\Tests\Feature\Document;
 
 use App\Tests\Factory\CourseFactory;
 use App\Tests\Value\TestBrick;
+use OpenDxp\Test\Factory\DocumentPageFactory;
 use OpenDxp\TestFoundation\Browser;
 
 it('renders the hero title as the heading of the page', function () {
@@ -61,4 +62,16 @@ it('renders every entry of the FAQ as a details element', function () {
     Browser::visit('/de')
         ->assertElementCount('details.faq__item', 2)
         ->assertSeeIn('details.faq__item summary', 'Wann beginnt der Kurs?');
+});
+
+it('renders a page that an editor creates without choosing a controller', function () {
+    DocumentPageFactory::new()
+        ->withParent(languageRoot('de'))
+        ->with(['key' => 'ueber-uns'])
+        ->withBricks('content', new TestBrick('hero', ['title' => editable('input', 'Über uns')]))
+        ->create();
+
+    Browser::visit('/de/ueber-uns')
+        ->assertSuccessful()
+        ->assertSeeIn('h1', 'Über uns');
 });

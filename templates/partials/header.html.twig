@@ -19,7 +19,8 @@
                     {% for page in navigation %}
                         {% if page.visible %}
                             <li class="site-nav__item">
-                                <a class="site-nav__link" href="{{ page.uri }}"{% if page.active(true) %} aria-current="page"{% endif %}>
+                                {# "page" for the current page, "true" for its section, like Kurse on a course page. #}
+                                <a class="site-nav__link" href="{{ page.uri }}"{% if page.active(true) %} aria-current="{{ page.uri == app.request.pathInfo ? 'page' : 'true' }}"{% endif %}>
                                     {{- page.label -}}
                                 </a>
                             </li>

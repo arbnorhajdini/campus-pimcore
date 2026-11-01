@@ -10,6 +10,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {# Marks that JavaScript runs. Without it the mobile menu stays open, so the navigation always works. #}
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <title>{% block title %}{{ pageTitle }}{% endblock %}</title>
     {% block meta %}
         <meta name="description" content="{{ document is defined and document.description is defined and document.description ? document.description : 'site.description'|trans }}">

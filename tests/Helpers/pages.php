@@ -17,7 +17,7 @@ function languageRoot(string $language, Brick ...$bricks): Page
 {
     return DocumentPageFactory::new()
         ->with(['key' => $language])
-        ->withController(DefaultController::class, 'homeAction')
+        ->withController(DefaultController::class, 'defaultAction')
         ->withInheritableProperty('language', 'text', $language)
         ->withBricks('content', ...$bricks)
         ->create();
