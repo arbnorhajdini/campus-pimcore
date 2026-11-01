@@ -23,9 +23,9 @@ services:
             - MYSQL_PASSWORD=opendxp
         healthcheck:
             # The service is considered healthy when:
-            # - connection to opendxp db can be established, and
+            # - connection to its own database can be established (localhost, so test-db checks itself), and
             # - we can run a simple SQL query.
-            test: [ "CMD-SHELL", "mysql -h db -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE -e 'SHOW TABLES;'" ]
+            test: [ "CMD-SHELL", "mysql -h localhost -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE -e 'SHOW TABLES;'" ]
             interval: 10s
             retries: 6
             start_period: 1m
