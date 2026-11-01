@@ -147,7 +147,8 @@
             color: var(--color-primary);
         }
 
-        &[aria-current='page'] {
+        // The current page and its section, like Kurse on a course page.
+        &[aria-current] {
             color: var(--color-primary);
             box-shadow: inset 0 -2px 0 currentcolor;
         }
