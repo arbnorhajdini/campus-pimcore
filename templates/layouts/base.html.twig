@@ -1,0 +1,38 @@
+{#
+    Base layout of every page. Pages fill the blocks title, meta and content.
+    A page can set navActive to mark a navigation entry when it is not a document itself.
+#}
+{% set locale = app.request.locale %}
+{% set languageRoot = opendxp_document_by_path('/' ~ locale) %}
+{% set pageTitle = document is defined and document.title is defined and document.title ? document.title : 'site.name'|trans %}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ pageTitle }}{% endblock %}</title>
+    {% block meta %}
+        <meta name="description" content="{{ document is defined and document.description is defined and document.description ? document.description : 'site.description'|trans }}">
+    {% endblock %}
+    {% for link in language_links() %}
+        <link rel="alternate" hreflang="{{ link.locale }}" href="{{ absolute_url(link.url) }}">
+    {% endfor %}
+    <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">
+    {{ importmap('app') }}
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <a class="skip-link" href="#main">{{ 'a11y.skip_to_content'|trans }}</a>
+
+    {{ include('partials/header.html.twig', {
+        languageRoot: languageRoot,
+        navActive: navActive ?? (document is defined ? document : null),
+    }) }}
+
+    <main id="main" class="site-main" tabindex="-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    {{ include('partials/footer.html.twig') }}
+</body>
+</html>

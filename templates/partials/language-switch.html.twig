@@ -1,0 +1,16 @@
+<nav class="language-switch" aria-label="{{ 'nav.language'|trans }}">
+    <ul class="language-switch__list">
+        {% for link in language_links() %}
+            <li>
+                <a class="language-switch__link"
+                   href="{{ link.url }}"
+                   hreflang="{{ link.locale }}"
+                   lang="{{ link.locale }}"
+                   {% if link.current %}aria-current="true"{% endif %}>
+                    <span aria-hidden="true">{{ link.locale|upper }}</span>
+                    <span class="visually-hidden">{{ link.locale|language_name(link.locale)|capitalize }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

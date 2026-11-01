@@ -1,0 +1,41 @@
+@use '../abstracts/breakpoints' as *;
+
+.site-footer {
+    margin-top: var(--space-8);
+    padding-block: var(--space-7);
+    font-size: var(--font-size-small);
+    color: rgb(255 255 255 / 80%);
+    background: var(--color-ink);
+
+    // Links and focus need light colors on the dark background.
+    --color-focus: #ffffff;
+
+    &__inner {
+        display: grid;
+        gap: var(--space-3);
+    }
+
+    &__name {
+        font-size: var(--font-size-base);
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    &__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2) var(--space-5);
+        padding-top: var(--space-4);
+        margin-top: var(--space-3);
+        border-top: 1px solid rgb(255 255 255 / 15%);
+    }
+
+    &__link {
+        color: #ffffff;
+
+        &:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    }
+}

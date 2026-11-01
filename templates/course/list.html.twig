@@ -1,0 +1,58 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block content %}
+    <div class="container page">
+        <header class="page-header">
+            <h1 class="page-header__title">{{ opendxp_input('headline', {placeholder: 'Überschrift'}) }}</h1>
+            <div class="page-header__intro rich-text">{{ opendxp_wysiwyg('intro', {placeholder: 'Einleitung'}) }}</div>
+        </header>
+
+        {# A plain GET form: it works without JavaScript, and every filter has its own URL. #}
+        <form class="course-filter" method="get" action="{{ document.fullPath }}" role="search" aria-label="{{ 'filter.label'|trans }}">
+            <div class="course-filter__field">
+                <label class="course-filter__label" for="filter-category">{{ 'filter.category'|trans }}</label>
+                <select class="course-filter__select" id="filter-category" name="category">
+                    <option value="">{{ 'filter.all_categories'|trans }}</option>
+                    {% for category in categories %}
+                        <option value="{{ category.value }}"{% if filter.category == category %} selected{% endif %}>
+                            {{- category.translationKey|trans -}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="course-filter__field">
+                <label class="course-filter__label" for="filter-location">{{ 'filter.location'|trans }}</label>
+                <select class="course-filter__select" id="filter-location" name="location">
+                    <option value="">{{ 'filter.all_locations'|trans }}</option>
+                    {% for location in locations %}
+                        <option value="{{ location.id }}"{% if filter.locationId == location.id %} selected{% endif %}>
+                            {{- location.city -}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="course-filter__actions">
+                <button class="button button--primary" type="submit">{{ 'filter.submit'|trans }}</button>
+                {% if filter.active %}
+                    <a class="course-filter__reset" href="{{ document.fullPath }}">{{ 'filter.reset'|trans }}</a>
+                {% endif %}
+            </div>
+        </form>
+
+        <p class="course-results" role="status">{{ 'filter.count'|trans({count: courses|length}) }}</p>
+
+        {% if courses %}
+            <ul class="course-grid">
+                {% for course in courses %}
+                    <li class="course-grid__item">
+                        {{ include('components/course-card.html.twig', {course: course, headingLevel: 2}, with_context = false) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-state">{{ 'filter.empty'|trans }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

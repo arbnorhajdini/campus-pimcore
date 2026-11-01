@@ -1,0 +1,38 @@
+.hero {
+    padding-block: var(--space-8);
+    color: var(--color-on-primary);
+    background:
+        radial-gradient(circle at 85% 20%, rgb(255 255 255 / 12%) 0 18rem, transparent 18rem),
+        linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+
+    --color-focus: #ffffff;
+
+    &__inner {
+        display: grid;
+        gap: var(--space-5);
+        justify-items: start;
+    }
+
+    &__title {
+        max-width: 18ch;
+    }
+
+    &__lead {
+        max-width: 40rem;
+        font-size: var(--font-size-lead);
+        color: rgb(255 255 255 / 88%);
+    }
+
+    // On the dark hero the primary button turns light.
+    .button--primary {
+        color: var(--color-primary-dark);
+        background: #ffffff;
+        border-color: #ffffff;
+
+        &:hover {
+            color: var(--color-primary-dark);
+            background: var(--color-primary-soft);
+            border-color: var(--color-primary-soft);
+        }
+    }
+}

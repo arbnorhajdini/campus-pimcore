@@ -1,0 +1,51 @@
+// Design tokens as CSS custom properties, so they can change at runtime,
+// for example --color-focus inside a dark section.
+
+:root {
+    --color-ink: #15202b;
+    --color-muted: #536070;
+    --color-background: #ffffff;
+    --color-surface: #f3f5f8;
+    --color-border: #d8dee5;
+    --color-primary: #1d4f91;
+    --color-primary-dark: #143a6c;
+    --color-primary-soft: #e7eef8;
+    --color-on-primary: #ffffff;
+    --color-focus: #1d4f91;
+
+    // Category colors: a soft background with a dark text, both above 4.5:1 contrast.
+    --color-it: #1b4a85;
+    --color-it-soft: #e6eef8;
+    --color-engineering: #8a4316;
+    --color-engineering-soft: #fbeee3;
+    --color-business: #175c48;
+    --color-business-soft: #e3f2ec;
+    --color-design: #6f2c6b;
+    --color-design-soft: #f5e8f4;
+
+    --font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-size-small: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+    --font-size-h1: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+    --font-size-h2: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+    --font-size-h3: 1.25rem;
+    --line-height: 1.6;
+    --line-height-tight: 1.2;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4.5rem;
+
+    --radius: 0.75rem;
+    --radius-small: 0.375rem;
+    --shadow: 0 1px 2px rgb(21 32 43 / 6%), 0 4px 16px rgb(21 32 43 / 8%);
+    --shadow-hover: 0 2px 4px rgb(21 32 43 / 8%), 0 12px 32px rgb(21 32 43 / 14%);
+    --container-width: 72rem;
+    --transition: 150ms ease;
+}

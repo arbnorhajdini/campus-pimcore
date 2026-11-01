@@ -1,0 +1,8 @@
+// auto-fill creates as many columns as fit, so the grid needs no breakpoints.
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-5);
+    padding: 0;
+    list-style: none;
+}

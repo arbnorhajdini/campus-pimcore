@@ -18,8 +18,12 @@
     "minimum-stability": "dev",
     "require": {
         "open-dxp/opendxp": "^1.5",
+        "symfony/asset-mapper": "^7.4",
         "symfony/dotenv": "^7.4",
-        "symfony/runtime": "^7.4"
+        "symfony/form": "^7.4",
+        "symfony/runtime": "^7.4",
+        "symfonycasts/sass-bundle": "^0.10.0",
+        "twig/intl-extra": "^3.30"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.95",

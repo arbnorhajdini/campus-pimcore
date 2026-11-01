@@ -1,0 +1,50 @@
+site:
+    name: Campus Zentralschweiz
+    description: École supérieure d'informatique, de technique, d'économie et de design à Lucerne, Zoug, Zurich et Berne.
+
+a11y:
+    skip_to_content: Aller au contenu
+
+nav:
+    main: Navigation principale
+    menu: Menu
+    language: Langue
+    breadcrumb: Fil d'Ariane
+    home: Accueil
+
+footer:
+    demo_note: Un projet de démonstration. L'école, ses cours et ses sites sont fictifs.
+    source: Code source sur GitHub
+
+home:
+    cta: Voir tous les cours
+    featured: Formations appréciées
+
+course:
+    category:
+        it: Informatique
+        engineering: Technique
+        business: Économie
+        design: Design
+    format:
+        part-time: En emploi
+        full-time: À plein temps
+    start: Début
+    duration: Durée
+    format_label: Forme
+    price: Prix
+    locations: Sites
+    facts: En bref
+    about: De quoi s'agit-il
+    semesters: '{count, plural, one {# semestre} other {# semestres}}'
+
+filter:
+    label: Filtrer les cours
+    category: Catégorie
+    location: Site
+    all_categories: Toutes les catégories
+    all_locations: Tous les sites
+    submit: Filtrer
+    reset: Réinitialiser les filtres
+    count: '{count, plural, =0 {Aucun cours trouvé} one {# cours trouvé} other {# cours trouvés}}'
+    empty: Aucun cours ne correspond actuellement à cette sélection. Essaie une autre catégorie ou un autre site.

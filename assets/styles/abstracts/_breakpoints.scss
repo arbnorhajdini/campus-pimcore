@@ -1,0 +1,19 @@
+@use 'sass:map';
+
+// The only place for breakpoints. Use the mixin, never a pixel value in a component.
+$breakpoints: (
+    sm: 36rem,
+    md: 48rem,
+    lg: 64rem,
+);
+
+// Mobile first: styles inside apply from the breakpoint upwards.
+@mixin respond($name) {
+    @if not map.has-key($breakpoints, $name) {
+        @error 'Unknown breakpoint "#{$name}". Use one of #{map.keys($breakpoints)}.';
+    }
+
+    @media (min-width: map.get($breakpoints, $name)) {
+        @content;
+    }
+}

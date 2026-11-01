@@ -1,0 +1,25 @@
+// Entry point of the styles, compiled by the Symfony Sass bundle.
+// Order: base, layout, components, pages. Abstracts only hold Sass tools and output no CSS.
+
+@use 'base/tokens';
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/utilities';
+
+@use 'layout/container';
+@use 'layout/site-header';
+@use 'layout/site-footer';
+@use 'layout/section';
+
+@use 'components/button';
+@use 'components/badge';
+@use 'components/breadcrumb';
+@use 'components/language-switch';
+@use 'components/rich-text';
+@use 'components/course-card';
+@use 'components/course-grid';
+@use 'components/course-filter';
+
+@use 'pages/home';
+@use 'pages/course-list';
+@use 'pages/course-detail';

@@ -12,4 +12,5 @@ return [
     OpenDxp\Bundle\WordExportBundle\OpenDxpWordExportBundle::class => ['all' => true],
     OpenDxp\Bundle\XliffBundle\OpenDxpXliffBundle::class => ['all' => true],
     OpenDxp\Bundle\GenericExecutionEngineBundle\OpenDxpGenericExecutionEngineBundle::class => ['all' => true],
+    Symfonycasts\SassBundle\SymfonycastsSassBundle::class => ['all' => true],
 ];

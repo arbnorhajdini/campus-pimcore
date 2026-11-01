@@ -1,0 +1,38 @@
+{#
+    A course in a list. The whole card is clickable, but only the title is a link,
+    so screen readers announce one link with a meaningful text.
+    Expects: course, headingLevel (optional, default 3)
+#}
+{% import 'macros/format.html.twig' as format %}
+{% set heading = 'h' ~ (headingLevel ?? 3) %}
+
+<article class="course-card course-card--{{ course.category }}">
+    {% if course.image %}
+        <div class="course-card__media">
+            {{ course.image.thumbnail('course-card').html({imgAttributes: {alt: '', loading: 'lazy', class: 'course-card__image'}})|raw }}
+        </div>
+    {% endif %}
+
+    <div class="course-card__body">
+        <span class="badge badge--{{ course.category }}">{{ ('course.category.' ~ course.category)|trans }}</span>
+
+        <{{ heading }} class="course-card__title">
+            <a class="course-card__link" href="{{ path('course_detail', {slug: course.slug, _locale: app.request.locale}) }}">
+                {{- course.title -}}
+            </a>
+        </{{ heading }}>
+
+        <p class="course-card__teaser">{{ course.teaser }}</p>
+
+        <dl class="course-card__meta">
+            <div class="course-card__fact">
+                <dt>{{ 'course.start'|trans }}</dt>
+                <dd>{{ format.date(course.startDate) }}</dd>
+            </div>
+            <div class="course-card__fact">
+                <dt>{{ 'course.duration'|trans }}</dt>
+                <dd>{{ 'course.semesters'|trans({count: course.durationSemesters}) }}</dd>
+            </div>
+        </dl>
+    </div>
+</article>

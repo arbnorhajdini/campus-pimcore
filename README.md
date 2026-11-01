@@ -13,12 +13,13 @@ bis zu sauberem, barrierefreiem Frontend in Twig und SCSS.
 - [x] OpenDXP mit Docker, Start mit einem Befehl
 - [x] Datenmodell: Kurse, Standorte, Anmeldungen als Data Objects
 - [x] Demo-Daten per Konsolenbefehl, damit die Seite nach dem Start nicht leer ist
-- [ ] Layout mit Twig-Vererbung, SCSS-Grundgerüst (BEM, Mobile First)
+- [x] Layout mit Twig-Vererbung, SCSS-Grundgerüst (BEM, Mobile First)
+- [x] Kursübersicht mit Filter nach Standort und Kategorie, Kursdetailseite
+- [x] Deutsch und Französisch, mit Sprachumschalter und hreflang
 - [ ] Startseite aus Areabricks: Hero, Teaser, nächste Kurse, Text mit Bild, FAQ
-- [ ] Kursübersicht mit Filter nach Standort und Kategorie, Kursdetailseite
 - [ ] Anmeldeformular mit Validierung und barrierefreien Fehlermeldungen
-- [ ] Deutsch und Französisch
-- [ ] Tests, statische Analyse und CI
+- [x] Tests und statische Analyse
+- [ ] CI mit GitHub Actions
 
 ## Warum OpenDXP
 
@@ -64,6 +65,40 @@ Die Klassen liegen als Definition in [`var/classes/`](var/classes) und werden be
 Die Demo-Inhalte stehen in [`fixtures/demo.yaml`](fixtures/demo.yaml). `make demo` legt sie an oder aktualisiert sie.
 Die Kursbilder sind generierte Farbverläufe, damit das Repo keine Fotos mit unklarer Lizenz enthält.
 
+## Seiten
+
+| Seite         | Deutsch                     | Französisch                 | Technik                                  |
+| ------------- | --------------------------- | --------------------------- | ---------------------------------------- |
+| Start         | `/de`                       | `/fr`                       | Dokument mit Editables                   |
+| Kursübersicht | `/de/kurse`                 | `/fr/cours`                 | Dokument, Controller lädt die Kurse      |
+| Kursdetail    | `/de/kurse/web-entwicklung` | `/fr/cours/web-entwicklung` | Symfony-Route mit einem Pfad pro Sprache |
+
+`/` leitet auf die Sprache weiter, die der Browser bevorzugt. Die Seiten beider Sprachen sind in OpenDXP als
+Übersetzungen verknüpft, der Sprachumschalter führt deshalb immer auf dieselbe Seite in der anderen Sprache.
+
+## Frontend
+
+```text
+templates/
+    layouts/base.html.twig      Grundgerüst: head, Skip-Link, Header, main, Footer
+    partials/                   Header mit Navigation aus dem Dokumentbaum, Footer, Sprachumschalter
+    components/                 Wiederverwendbare Teile wie die Kurskarte
+    macros/format.html.twig     Datum und Preis im Format der Sprache
+    pages/, course/             Die Seiten
+assets/
+    styles/                     SCSS: abstracts, base, layout, components, pages
+    js/                         ES-Module ohne Bundler, über die Symfony AssetMapper
+translations/                   Texte der Oberfläche in DE und FR (ICU, mit Plural)
+```
+
+- **Kein Node.js nötig.** Das SCSS kompiliert das Symfony Sass-Bundle im PHP-Container, JavaScript lädt als
+  natives ES-Modul über eine Importmap.
+- **SCSS:** BEM, eine Datei pro Komponente, Design-Tokens als CSS-Variablen, Breakpoints nur über ein Mixin.
+- **Barrierefreiheit:** semantisches HTML, Skip-Link, sichtbarer Fokus, Labels an allen Formularfeldern,
+  `aria-current` in Navigation und Sprachumschalter, ausreichende Kontraste.
+- **Bilder:** OpenDXP erzeugt die Thumbnails als `<picture>` mit AVIF, WebP und JPEG, jeweils in 1x und 2x.
+- **Ohne JavaScript benutzbar:** Der Kursfilter ist ein normales GET-Formular, jede Auswahl hat ihre eigene URL.
+
 ## Befehle
 
 | Befehl       | Was er macht                                       |
@@ -71,6 +106,7 @@ Die Kursbilder sind generierte Farbverläufe, damit das Repo keine Fotos mit unk
 | `make setup` | Erster Start: Container, Pakete, Installation      |
 | `make up`    | Container starten                                  |
 | `make demo`  | Demo-Inhalte anlegen oder aktualisieren            |
+| `make watch` | SCSS bei jeder Änderung neu kompilieren            |
 | `make down`  | Container stoppen                                  |
 | `make cache` | Caches leeren                                      |
 | `make cs`    | Code-Stil korrigieren (PHP-CS-Fixer)               |
@@ -84,7 +120,7 @@ Die Kursbilder sind generierte Farbverläufe, damit das Repo keine Fotos mit unk
 | --------- | ---------------------------------------------------- |
 | CMS       | OpenDXP 1.5 (Pimcore-Fork) auf Symfony 7.4           |
 | Backend   | PHP 8.3, MariaDB 10.11, Redis                        |
-| Frontend  | Twig, HTML, SCSS, Vanilla JavaScript (ES-Module)     |
+| Frontend  | Twig, HTML, SCSS, Vanilla JavaScript (ES-Module), Symfony AssetMapper |
 | Qualität  | Pest, PHPStan, PHP-CS-Fixer                          |
 | Umgebung  | Docker Compose: PHP-FPM, Nginx, Supervisord          |
 

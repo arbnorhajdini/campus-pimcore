@@ -1,0 +1,96 @@
+{% extends 'layouts/base.html.twig' %}
+{% import 'macros/format.html.twig' as format %}
+
+{# The detail page is a Symfony route, not a document. The course list stays active in the navigation. #}
+{% set coursesPage = opendxp_website_config('coursesPage', null, app.request.locale) %}
+{% set navActive = coursesPage %}
+
+{% block title %}{{ course.title }} | {{ 'site.name'|trans }}{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="{{ course.teaser }}">
+{% endblock %}
+
+{% block head %}
+    <script type="application/ld+json">
+        {{ {
+            '@context': 'https://schema.org',
+            '@type': 'Course',
+            name: course.title,
+            description: course.teaser,
+            url: url('course_detail', {slug: course.slug, _locale: app.request.locale}),
+            inLanguage: app.request.locale,
+            provider: {'@type': 'EducationalOrganization', name: 'site.name'|trans},
+        }|json_encode(constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_HEX_TAG'))|raw }}
+    </script>
+{% endblock %}
+
+{% block content %}
+    <article class="course-detail course-detail--{{ course.category }}">
+        <header class="course-detail__header">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="{{ 'nav.breadcrumb'|trans }}">
+                    <ol class="breadcrumb__list">
+                        <li class="breadcrumb__item"><a href="{{ languageRoot.fullPath }}">{{ 'nav.home'|trans }}</a></li>
+                        {% if coursesPage %}
+                            <li class="breadcrumb__item"><a href="{{ coursesPage.fullPath }}">{{ coursesPage.property('navigation_name') }}</a></li>
+                        {% endif %}
+                        <li class="breadcrumb__item" aria-current="page">{{ course.title }}</li>
+                    </ol>
+                </nav>
+
+                <span class="badge badge--{{ course.category }} badge--on-dark">{{ ('course.category.' ~ course.category)|trans }}</span>
+                <h1 class="course-detail__title">{{ course.title }}</h1>
+                <p class="course-detail__teaser">{{ course.teaser }}</p>
+            </div>
+        </header>
+
+        <div class="container course-detail__layout">
+            <div class="course-detail__content">
+                {% if course.image %}
+                    <div class="course-detail__media">
+                        {{ course.image.thumbnail('course-hero').html({imgAttributes: {alt: '', class: 'course-detail__image', fetchpriority: 'high'}})|raw }}
+                    </div>
+                {% endif %}
+
+                <h2>{{ 'course.about'|trans }}</h2>
+                {# Rich text from the editor in the admin, the only place where HTML is trusted. #}
+                <div class="rich-text">{{ course.description|raw }}</div>
+            </div>
+
+            <aside class="course-facts" aria-labelledby="facts-title">
+                <h2 class="course-facts__title" id="facts-title">{{ 'course.facts'|trans }}</h2>
+                <dl class="course-facts__list">
+                    <div class="course-facts__item">
+                        <dt>{{ 'course.start'|trans }}</dt>
+                        <dd>{{ format.date(course.startDate) }}</dd>
+                    </div>
+                    <div class="course-facts__item">
+                        <dt>{{ 'course.duration'|trans }}</dt>
+                        <dd>{{ 'course.semesters'|trans({count: course.durationSemesters}) }}</dd>
+                    </div>
+                    <div class="course-facts__item">
+                        <dt>{{ 'course.format_label'|trans }}</dt>
+                        <dd>{{ ('course.format.' ~ course.format)|trans }}</dd>
+                    </div>
+                    {% if course.price %}
+                        <div class="course-facts__item">
+                            <dt>{{ 'course.price'|trans }}</dt>
+                            <dd>{{ format.price(course.price) }}</dd>
+                        </div>
+                    {% endif %}
+                    <div class="course-facts__item">
+                        <dt>{{ 'course.locations'|trans }}</dt>
+                        <dd>
+                            <ul class="course-facts__locations">
+                                {% for location in course.locations %}
+                                    <li>{{ location.city }}</li>
+                                {% endfor %}
+                            </ul>
+                        </dd>
+                    </div>
+                </dl>
+            </aside>
+        </div>
+    </article>
+{% endblock %}

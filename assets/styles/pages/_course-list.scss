@@ -1,0 +1,13 @@
+.course-results {
+    margin-bottom: var(--space-4);
+    font-weight: 600;
+    color: var(--color-muted);
+}
+
+.empty-state {
+    padding: var(--space-6);
+    text-align: center;
+    color: var(--color-muted);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius);
+}

@@ -1,0 +1,10 @@
+{# Formatting helpers that respect the language of the page. #}
+
+{% macro date(value) %}
+    {%- set locale = app.request.locale -%}
+    <time datetime="{{ value|date('Y-m-d') }}">{{ value|format_date('long', locale: locale) }}</time>
+{%- endmacro %}
+
+{% macro price(value) %}
+    {{- value|format_currency('CHF', {fraction_digit: 0}, locale: app.request.locale ~ '_CH') -}}
+{% endmacro %}

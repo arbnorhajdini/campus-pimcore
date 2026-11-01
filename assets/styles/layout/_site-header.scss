@@ -1,0 +1,148 @@
+@use '../abstracts/breakpoints' as *;
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgb(255 255 255 / 95%);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(8px);
+
+    &__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 4rem;
+    }
+
+    &__brand {
+        display: flex;
+        gap: var(--space-3);
+        align-items: center;
+        font-weight: 700;
+        color: var(--color-ink);
+        text-decoration: none;
+    }
+
+    &__logo {
+        display: grid;
+        place-items: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        font-size: var(--font-size-small);
+        color: var(--color-on-primary);
+        background: var(--color-primary);
+        border-radius: var(--radius-small);
+    }
+
+    // Hamburger icon drawn with one element and two pseudo elements.
+    &__toggle {
+        display: grid;
+        place-items: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0;
+        background: none;
+        border: 0;
+        border-radius: var(--radius-small);
+        cursor: pointer;
+
+        @include respond(md) {
+            display: none;
+        }
+    }
+
+    &__toggle-icon,
+    &__toggle-icon::before,
+    &__toggle-icon::after {
+        display: block;
+        width: 1.375rem;
+        height: 2px;
+        background: var(--color-ink);
+        border-radius: 1px;
+        transition: transform var(--transition);
+    }
+
+    &__toggle-icon {
+        position: relative;
+
+        &::before,
+        &::after {
+            position: absolute;
+            left: 0;
+            content: '';
+        }
+
+        &::before {
+            top: -7px;
+        }
+
+        &::after {
+            top: 7px;
+        }
+    }
+
+    &__toggle[aria-expanded='true'] &__toggle-icon {
+        background: transparent;
+
+        &::before {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        &::after {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+    }
+
+    // Collapsed on small screens until the toggle opens it, always visible from md.
+    &__menu {
+        display: none;
+        flex-basis: 100%;
+        padding-block: var(--space-3) var(--space-5);
+
+        &.is-open {
+            display: block;
+        }
+
+        @include respond(md) {
+            display: flex;
+            flex-basis: auto;
+            gap: var(--space-6);
+            align-items: center;
+            padding: 0;
+        }
+    }
+}
+
+.site-nav {
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+        padding: 0;
+        list-style: none;
+
+        @include respond(md) {
+            flex-direction: row;
+            gap: var(--space-5);
+        }
+    }
+
+    &__link {
+        display: block;
+        padding-block: var(--space-2);
+        font-weight: 600;
+        color: var(--color-ink);
+        text-decoration: none;
+
+        &:hover {
+            color: var(--color-primary);
+        }
+
+        &[aria-current='page'] {
+            color: var(--color-primary);
+            box-shadow: inset 0 -2px 0 currentcolor;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.section {
+    padding-block: var(--space-7);
+
+    &__title {
+        margin-bottom: var(--space-5);
+    }
+}
+
+.page {
+    padding-block: var(--space-6) 0;
+}
+
+.page-header {
+    max-width: 48rem;
+    margin-bottom: var(--space-6);
+
+    &__title {
+        margin-bottom: var(--space-3);
+    }
+
+    &__intro {
+        font-size: var(--font-size-lead);
+        color: var(--color-muted);
+    }
+}

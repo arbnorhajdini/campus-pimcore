@@ -1,0 +1,24 @@
+$categories: it, engineering, business, design;
+
+.badge {
+    display: inline-block;
+    padding: 0.125rem var(--space-3);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--color-it);
+    background: var(--color-it-soft);
+    border-radius: 999px;
+
+    @each $category in $categories {
+        &--#{$category} {
+            color: var(--color-#{$category});
+            background: var(--color-#{$category}-soft);
+        }
+    }
+
+    // On a dark background the soft colors swap roles.
+    &--on-dark {
+        color: var(--color-ink);
+        background: #ffffff;
+    }
+}

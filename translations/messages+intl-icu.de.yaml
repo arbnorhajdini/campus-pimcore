@@ -1,0 +1,50 @@
+site:
+    name: Campus Zentralschweiz
+    description: Höhere Fachschule für Informatik, Technik, Wirtschaft und Gestaltung in Luzern, Zug, Zürich und Bern.
+
+a11y:
+    skip_to_content: Zum Inhalt springen
+
+nav:
+    main: Hauptnavigation
+    menu: Menü
+    language: Sprache
+    breadcrumb: Brotkrümelnavigation
+    home: Start
+
+footer:
+    demo_note: Ein Demo-Projekt. Die Schule, ihre Kurse und Standorte sind erfunden.
+    source: Quellcode auf GitHub
+
+home:
+    cta: Alle Kurse ansehen
+    featured: Beliebte Weiterbildungen
+
+course:
+    category:
+        it: Informatik
+        engineering: Technik
+        business: Wirtschaft
+        design: Gestaltung
+    format:
+        part-time: Berufsbegleitend
+        full-time: Vollzeit
+    start: Start
+    duration: Dauer
+    format_label: Form
+    price: Preis
+    locations: Standorte
+    facts: Auf einen Blick
+    about: Worum es geht
+    semesters: '{count, plural, one {# Semester} other {# Semester}}'
+
+filter:
+    label: Kurse filtern
+    category: Kategorie
+    location: Standort
+    all_categories: Alle Kategorien
+    all_locations: Alle Standorte
+    submit: Filtern
+    reset: Filter zurücksetzen
+    count: '{count, plural, =0 {Keine Kurse gefunden} one {# Kurs gefunden} other {# Kurse gefunden}}'
+    empty: Für diese Auswahl gibt es zurzeit keine Kurse. Versuche eine andere Kategorie oder einen anderen Standort.

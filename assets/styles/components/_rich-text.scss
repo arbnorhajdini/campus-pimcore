@@ -1,0 +1,15 @@
+// HTML from the WYSIWYG editor, so there are no classes to hook into.
+.rich-text {
+    > * + * {
+        margin-top: var(--space-4);
+    }
+
+    ul,
+    ol {
+        padding-left: var(--space-5);
+    }
+
+    li + li {
+        margin-top: var(--space-2);
+    }
+}

@@ -1,6 +1,39 @@
 # Demo content for `bin/console app:demo:install`.
 # Campus Zentralschweiz is a fictional school. All names and addresses are made up.
 
+# One document tree per language. The pages of both trees are linked as translations.
+pages:
+    de:
+        home:
+            title: Campus Zentralschweiz | Weiterbildung in Luzern, Zug, Zürich und Bern
+            description: Höhere Fachschule für Informatik, Technik, Wirtschaft und Gestaltung. Berufsbegleitend an vier Standorten.
+            editables:
+                heroTitle: { type: input, data: "Weiterbildung, die zu deinem Berufsalltag passt" }
+                heroLead: { type: textarea, data: "Höhere Fachschule für Informatik, Technik, Wirtschaft und Gestaltung. Berufsbegleitend an vier Standorten in der Deutschschweiz." }
+        courses:
+            key: kurse
+            navigation: Kurse
+            title: Kurse | Campus Zentralschweiz
+            description: Alle Weiterbildungen im Überblick, filterbar nach Kategorie und Standort.
+            editables:
+                headline: { type: input, data: "Unsere Weiterbildungen" }
+                intro: { type: wysiwyg, data: "<p>Finde die Weiterbildung, die zu dir passt. Filtere nach Kategorie oder Standort.</p>" }
+    fr:
+        home:
+            title: Campus Zentralschweiz | Formation continue à Lucerne, Zoug, Zurich et Berne
+            description: École supérieure d'informatique, de technique, d'économie et de design. En emploi, sur quatre sites.
+            editables:
+                heroTitle: { type: input, data: "Une formation continue qui s'adapte à ton quotidien professionnel" }
+                heroLead: { type: textarea, data: "École supérieure d'informatique, de technique, d'économie et de design. En emploi, sur quatre sites en Suisse alémanique." }
+        courses:
+            key: cours
+            navigation: Cours
+            title: Cours | Campus Zentralschweiz
+            description: Toutes les formations en un coup d'œil, filtrables par catégorie et par site.
+            editables:
+                headline: { type: input, data: "Nos formations" }
+                intro: { type: wysiwyg, data: "<p>Trouve la formation qui te convient. Filtre par catégorie ou par site.</p>" }
+
 locations:
     luzern:
         name: Campus Luzern

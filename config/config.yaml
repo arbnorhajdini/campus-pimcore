@@ -9,6 +9,23 @@ opendxp:
         default_language: de
         fallback_languages:
             fr: de
+    assets:
+        image:
+            thumbnails:
+                # Sizes for the frontend. OpenDXP adds WebP and AVIF sources and a 2x version for sharp displays.
+                definitions:
+                    course-card:
+                        id: course-card
+                        name: course-card
+                        quality: 80
+                        items:
+                            - { method: cover, arguments: { width: 640, height: 400, positioning: center } }
+                    course-hero:
+                        id: course-hero
+                        name: course-hero
+                        quality: 80
+                        items:
+                            - { method: cover, arguments: { width: 1200, height: 600, positioning: center } }
 
 framework:
     cache:

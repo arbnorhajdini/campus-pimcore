@@ -1,0 +1,44 @@
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    color: var(--color-ink);
+    background: var(--color-background);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+    line-height: var(--line-height-tight);
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: var(--font-size-h1);
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+    letter-spacing: -0.01em;
+}
+
+h3 {
+    font-size: var(--font-size-h3);
+}
+
+a {
+    color: var(--color-primary);
+    text-underline-offset: 0.2em;
+
+    &:hover {
+        color: var(--color-primary-dark);
+    }
+}
+
+// One visible focus style for everything. :focus-visible keeps it away from mouse clicks.
+:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+}

@@ -14,12 +14,12 @@ PHP = $(COMPOSE) exec -T php
 TEST_PHP = $(COMPOSE) run --rm -T test-php
 
 .DEFAULT_GOAL := help
-.PHONY: help setup up down vendor install demo console cache cs stan test
+.PHONY: help setup up down vendor install demo assets watch console cache cs stan test
 
 help: ## Show this help
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-8s %s\n", $$1, $$2}'
 
-setup: up vendor install demo ## First start: containers, packages, installation, demo content
+setup: up vendor install demo assets ## First start: containers, packages, installation, demo content, styles
 
 up: ## Start the containers
 	$(COMPOSE) up -d
@@ -38,6 +38,12 @@ install: ## Install OpenDXP into the database
 demo: ## Create or update the demo content
 	$(PHP) bin/console app:demo:install
 
+assets: ## Compile the SCSS
+	$(PHP) bin/console sass:build
+
+watch: ## Compile the SCSS on every change
+	$(PHP) bin/console sass:build --watch
+
 console: ## Run a console command, e.g. make console c=debug:router
 	$(PHP) bin/console $(c)
 
@@ -54,4 +60,5 @@ stan: ## Run the static analysis
 test: ## Run the tests
 	$(COMPOSE) run --rm -T --user=root test-php chown -R $(DOCKER_UID):$(DOCKER_GID) var/ public/var/
 	$(TEST_PHP) vendor/bin/opendxp-test install
+	$(TEST_PHP) bin/console sass:build
 	$(TEST_PHP) vendor/bin/pest
