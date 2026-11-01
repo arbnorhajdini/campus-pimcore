@@ -23,6 +23,10 @@ jobs:
             - name: Start the database and the cache
               run: docker compose --profile test up -d --wait redis test-db
 
+            # Fresh Docker volumes belong to root, the runner user needs to write var/ before Composer clears the cache.
+            - name: Own the test volumes
+              run: docker compose run --rm -T --user=root test-php chown -R "$DOCKER_UID:$DOCKER_GID" var/ public/var/
+
             - name: Install the Composer packages
               run: docker compose run --rm -T test-php composer install --no-interaction --no-progress
 
