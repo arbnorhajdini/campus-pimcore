@@ -79,11 +79,13 @@ final class DemoInstallCommand extends Command
 
         foreach ($fixtures as $language => $pages) {
             $home = $this->installPage($root, $language, $pages['home'], DefaultController::class . '::homeAction');
-            $home->setProperty('language', 'text', $language, false, true);
-            $home->save();
-
             $courses = $this->installPage($home, $pages['courses']['key'], $pages['courses'], CourseController::class . '::listAction');
             $this->installWebsiteSetting('coursesPage', $courses, $language);
+
+            // The bricks link to the course list, so they are filled once it exists.
+            $this->setEditables($home, $this->brickEditables('content', $pages['home']['bricks']));
+            $home->setProperty('language', 'text', $language, false, true);
+            $home->save();
 
             // The first language is the source, every other language is linked to it.
             if ($sources === []) {
@@ -107,10 +109,7 @@ final class DemoInstallCommand extends Command
         $page->setController($controller);
         $page->setTitle($data['title']);
         $page->setDescription($data['description']);
-
-        foreach ($data['editables'] as $name => $editable) {
-            $page->setRawEditable($name, $editable['type'], $editable['data']);
-        }
+        $this->setEditables($page, $data['editables'] ?? []);
 
         if (isset($data['navigation'])) {
             $page->setProperty('navigation_name', 'text', $data['navigation']);
@@ -120,6 +119,60 @@ final class DemoInstallCommand extends Command
         $page->save();
 
         return $page;
+    }
+
+    /**
+     * Replaces all editables of the page, so editables from an earlier run do not stay behind.
+     *
+     * @param array<string, array{type: string, data: mixed}> $editables
+     */
+    private function setEditables(Document\Page $page, array $editables): void
+    {
+        $page->setEditables([]);
+
+        foreach ($editables as $name => $editable) {
+            $data = $editable['data'];
+            if ($editable['type'] === 'image') {
+                $data = ['id' => $this->installImage('/Seiten', $data['asset'], 'business')->getId()];
+            }
+
+            $page->setRawEditable($name, $editable['type'], $data);
+        }
+    }
+
+    /**
+     * Turns the bricks of the fixtures into the flat list of editables that OpenDXP stores.
+     * A brick editable is named "content:2.headline", an entry of a block inside it "content:4.items:1.question".
+     *
+     * @param list<array<string, mixed>> $bricks
+     *
+     * @return array<string, array{type: string, data: mixed}>
+     */
+    private function brickEditables(string $areablock, array $bricks): array
+    {
+        $indices = [];
+        $editables = [];
+
+        foreach ($bricks as $position => $brick) {
+            $key = (string) ($position + 1);
+            $indices[] = ['key' => $key, 'type' => $brick['type'], 'hidden' => false];
+
+            foreach ($brick['editables'] ?? [] as $name => $editable) {
+                $editables["{$areablock}:{$key}.{$name}"] = $editable;
+            }
+
+            foreach ($brick['blocks'] ?? [] as $block => $entries) {
+                $editables["{$areablock}:{$key}.{$block}"] = ['type' => 'block', 'data' => range(1, count($entries))];
+
+                foreach ($entries as $index => $entry) {
+                    foreach ($entry as $name => $editable) {
+                        $editables[sprintf('%s:%s.%s:%d.%s', $areablock, $key, $block, $index + 1, $name)] = $editable;
+                    }
+                }
+            }
+        }
+
+        return [$areablock => ['type' => 'areablock', 'data' => $indices], ...$editables];
     }
 
     private function installWebsiteSetting(string $name, Document $document, string $language): void
@@ -180,7 +233,7 @@ final class DemoInstallCommand extends Command
             $course->setStartDate(Carbon::parse($data['start']));
             $course->setFeatured($data['featured']);
             $course->setLocations(array_map(fn (string $key) => $locations[$key], $data['locations']));
-            $course->setImage($this->installImage($slug, $data['category']));
+            $course->setImage($this->installImage('/Kurse', $slug, $data['category']));
 
             foreach (self::LANGUAGES as $language) {
                 $course->setTitle($data[$language]['title'], $language);
@@ -197,19 +250,19 @@ final class DemoInstallCommand extends Command
         return $courses;
     }
 
-    private function installImage(string $slug, string $category): Asset\Image
+    private function installImage(string $folderPath, string $name, string $category): Asset\Image
     {
-        $filename = "{$slug}.jpg";
-        $existing = Asset\Image::getByPath("/Kurse/{$filename}");
+        $filename = "{$name}.jpg";
+        $existing = Asset\Image::getByPath("{$folderPath}/{$filename}");
         if ($existing instanceof Asset\Image) {
             return $existing;
         }
 
-        $folder = Asset\Service::createFolderByPath('/Kurse');
+        $folder = Asset\Service::createFolderByPath($folderPath);
         $image = new Asset\Image();
         $image->setParent($folder);
         $image->setFilename($filename);
-        $image->setData($this->images->generate($category, $slug));
+        $image->setData($this->images->generate($category, $name));
         $image->save();
 
         return $image;

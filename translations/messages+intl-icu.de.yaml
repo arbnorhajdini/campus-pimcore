@@ -16,10 +16,6 @@ footer:
     demo_note: Ein Demo-Projekt. Die Schule, ihre Kurse und Standorte sind erfunden.
     source: Quellcode auf GitHub
 
-home:
-    cta: Alle Kurse ansehen
-    featured: Beliebte Weiterbildungen
-
 course:
     category:
         it: Informatik

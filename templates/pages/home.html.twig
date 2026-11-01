@@ -1,30 +1,10 @@
 {% extends 'layouts/base.html.twig' %}
 
+{# Editors build the start page from bricks. Each brick is a class in src/Document/Areabrick and a template in areas/. #}
 {% block content %}
-    {% set coursesPage = opendxp_website_config('coursesPage', null, app.request.locale) %}
-
-    <section class="hero">
-        <div class="container hero__inner">
-            <h1 class="hero__title">{{ opendxp_input('heroTitle', {placeholder: 'Titel'}) }}</h1>
-            <div class="hero__lead">{{ opendxp_textarea('heroLead', {placeholder: 'Einleitung', nl2br: true}) }}</div>
-            {% if coursesPage %}
-                <a class="button button--primary button--large" href="{{ coursesPage.fullPath }}">{{ 'home.cta'|trans }}</a>
-            {% endif %}
-        </div>
-    </section>
-
-    {% if featuredCourses %}
-        <section class="section" aria-labelledby="featured-title">
-            <div class="container">
-                <h2 class="section__title" id="featured-title">{{ 'home.featured'|trans }}</h2>
-                <ul class="course-grid">
-                    {% for course in featuredCourses %}
-                        <li class="course-grid__item">
-                            {{ include('components/course-card.html.twig', {course: course, headingLevel: 3}, with_context = false) }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </section>
-    {% endif %}
+    {{ opendxp_areablock('content', {
+        allowed: ['hero', 'featured-courses', 'text-image', 'faq'],
+        sorting: ['hero', 'featured-courses', 'text-image', 'faq'],
+        limits: {hero: 1},
+    }) }}
 {% endblock %}

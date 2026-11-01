@@ -1,0 +1,18 @@
+{# <details> and <summary> open and close without JavaScript and are keyboard accessible out of the box. #}
+<section class="section">
+    <div class="container">
+        <div class="faq">
+            <h2 class="faq__title">{{ opendxp_input('headline', {placeholder: 'Überschrift'}) }}</h2>
+
+            <div class="faq__list">
+                {% for entry in opendxp_iterate_block(opendxp_block('items')) %}
+                    {# Open in the editor, so the answer can be edited. #}
+                    <details class="faq__item"{% if editmode %} open{% endif %}>
+                        <summary class="faq__question">{{ opendxp_input('question', {placeholder: 'Frage'}) }}</summary>
+                        <div class="faq__answer rich-text">{{ opendxp_wysiwyg('answer', {placeholder: 'Antwort'}) }}</div>
+                    </details>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

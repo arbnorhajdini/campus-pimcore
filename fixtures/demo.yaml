@@ -2,14 +2,38 @@
 # Campus Zentralschweiz is a fictional school. All names and addresses are made up.
 
 # One document tree per language. The pages of both trees are linked as translations.
+# The start page is built from bricks. A link points to a page by its path, an image to a generated asset by its name.
 pages:
     de:
         home:
             title: Campus Zentralschweiz | Weiterbildung in Luzern, Zug, Zürich und Bern
             description: Höhere Fachschule für Informatik, Technik, Wirtschaft und Gestaltung. Berufsbegleitend an vier Standorten.
-            editables:
-                heroTitle: { type: input, data: "Weiterbildung, die zu deinem Berufsalltag passt" }
-                heroLead: { type: textarea, data: "Höhere Fachschule für Informatik, Technik, Wirtschaft und Gestaltung. Berufsbegleitend an vier Standorten in der Deutschschweiz." }
+            bricks:
+                -   type: hero
+                    editables:
+                        title: { type: input, data: "Weiterbildung, die zu deinem Berufsalltag passt" }
+                        lead: { type: textarea, data: "Höhere Fachschule für Informatik, Technik, Wirtschaft und Gestaltung. Berufsbegleitend an vier Standorten in der Deutschschweiz." }
+                        cta: { type: link, data: { text: "Alle Kurse ansehen", path: /de/kurse, linktype: internal, internalType: document } }
+                -   type: featured-courses
+                    editables:
+                        headline: { type: input, data: "Beliebte Weiterbildungen" }
+                -   type: text-image
+                    editables:
+                        headline: { type: input, data: "Lernen, wo du arbeitest" }
+                        text: { type: wysiwyg, data: "<p>Mit Standorten in Luzern, Zug, Zürich und Bern ist der nächste Campus nie weit. Der Unterricht findet abends und am Samstag statt, ein Teil davon online.</p><p>Unsere Dozierenden arbeiten selbst in der Praxis und bringen aktuelle Projekte in den Unterricht mit.</p>" }
+                        imagePosition: { type: select, data: "right" }
+                        image: { type: image, data: { asset: campus } }
+                -   type: faq
+                    editables:
+                        headline: { type: input, data: "Häufige Fragen" }
+                    blocks:
+                        items:
+                            -   question: { type: input, data: "Kann ich die Weiterbildung neben dem Beruf besuchen?" }
+                                answer: { type: wysiwyg, data: "<p>Ja. Die meisten Lehrgänge sind berufsbegleitend: Unterricht an zwei Abenden pro Woche und an einzelnen Samstagen.</p>" }
+                            -   question: { type: input, data: "Welche Voraussetzungen brauche ich?" }
+                                answer: { type: wysiwyg, data: "<p>Eine abgeschlossene berufliche Grundbildung oder eine gleichwertige Ausbildung sowie Berufserfahrung im Fachgebiet.</p>" }
+                            -   question: { type: input, data: "Beteiligt sich mein Arbeitgeber an den Kosten?" }
+                                answer: { type: wysiwyg, data: "<p>Viele Arbeitgeber tun das. Wir stellen dir gerne eine Kursbestätigung für dein Gespräch mit dem Arbeitgeber aus.</p>" }
         courses:
             key: kurse
             navigation: Kurse
@@ -22,9 +46,32 @@ pages:
         home:
             title: Campus Zentralschweiz | Formation continue à Lucerne, Zoug, Zurich et Berne
             description: École supérieure d'informatique, de technique, d'économie et de design. En emploi, sur quatre sites.
-            editables:
-                heroTitle: { type: input, data: "Une formation continue qui s'adapte à ton quotidien professionnel" }
-                heroLead: { type: textarea, data: "École supérieure d'informatique, de technique, d'économie et de design. En emploi, sur quatre sites en Suisse alémanique." }
+            bricks:
+                -   type: hero
+                    editables:
+                        title: { type: input, data: "Une formation continue qui s'adapte à ton quotidien professionnel" }
+                        lead: { type: textarea, data: "École supérieure d'informatique, de technique, d'économie et de design. En emploi, sur quatre sites en Suisse alémanique." }
+                        cta: { type: link, data: { text: "Voir tous les cours", path: /fr/cours, linktype: internal, internalType: document } }
+                -   type: featured-courses
+                    editables:
+                        headline: { type: input, data: "Formations appréciées" }
+                -   type: text-image
+                    editables:
+                        headline: { type: input, data: "Apprendre près de ton lieu de travail" }
+                        text: { type: wysiwyg, data: "<p>Avec des sites à Lucerne, Zoug, Zurich et Berne, le prochain campus n'est jamais loin. Les cours ont lieu le soir et le samedi, une partie en ligne.</p><p>Nos enseignantes et enseignants travaillent eux-mêmes dans la pratique et apportent des projets actuels en classe.</p>" }
+                        imagePosition: { type: select, data: "right" }
+                        image: { type: image, data: { asset: campus } }
+                -   type: faq
+                    editables:
+                        headline: { type: input, data: "Questions fréquentes" }
+                    blocks:
+                        items:
+                            -   question: { type: input, data: "Puis-je suivre la formation en parallèle de mon emploi ?" }
+                                answer: { type: wysiwyg, data: "<p>Oui. La plupart des filières sont en emploi : cours deux soirs par semaine et certains samedis.</p>" }
+                            -   question: { type: input, data: "De quels prérequis ai-je besoin ?" }
+                                answer: { type: wysiwyg, data: "<p>Une formation professionnelle initiale achevée ou une formation équivalente, ainsi qu'une expérience professionnelle dans le domaine.</p>" }
+                            -   question: { type: input, data: "Mon employeur participe-t-il aux frais ?" }
+                                answer: { type: wysiwyg, data: "<p>Beaucoup d'employeurs le font. Nous te fournissons volontiers une attestation de cours pour ton entretien avec ton employeur.</p>" }
         courses:
             key: cours
             navigation: Cours

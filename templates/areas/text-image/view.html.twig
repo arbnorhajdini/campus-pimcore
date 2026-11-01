@@ -1,0 +1,26 @@
+{% set position = opendxp_select('imagePosition', {
+    store: [['right', 'Bild rechts'], ['left', 'Bild links']],
+    defaultValue: 'right',
+}) %}
+{% set image = opendxp_image('image', {
+    thumbnail: 'text-image',
+    imgAttributes: {class: 'text-image__image', loading: 'lazy'},
+}) %}
+{% set hasImage = editmode or not image.isEmpty %}
+
+<section class="section">
+    <div class="container text-image{{ hasImage ? ' text-image--image-' ~ (position.data ?: 'right') : ' text-image--text-only' }}">
+        <div class="text-image__text">
+            <h2 class="text-image__title">{{ opendxp_input('headline', {placeholder: 'Überschrift'}) }}</h2>
+            <div class="rich-text">{{ opendxp_wysiwyg('text', {placeholder: 'Text'}) }}</div>
+
+            {% if editmode %}
+                <div class="text-image__setting">{{ position }}</div>
+            {% endif %}
+        </div>
+
+        {% if hasImage %}
+            <div class="text-image__media">{{ image }}</div>
+        {% endif %}
+    </div>
+</section>

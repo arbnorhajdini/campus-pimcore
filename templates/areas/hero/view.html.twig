@@ -1,0 +1,18 @@
+<section class="hero">
+    <div class="container hero__inner">
+        <h1 class="hero__title">{{ opendxp_input('title', {placeholder: 'Titel'}) }}</h1>
+        <div class="hero__lead">{{ opendxp_textarea('lead', {placeholder: 'Einleitung', nl2br: true}) }}</div>
+
+        {#
+            The link editable prints every stored value as an HTML attribute (text="…", path="…").
+            Outside the editor the template builds the link from href and text only.
+        #}
+        {% set buttonClass = 'button button--primary button--large' %}
+        {% set cta = opendxp_link('cta', {class: buttonClass}) %}
+        {% if editmode %}
+            {{ cta }}
+        {% elseif not cta.isEmpty %}
+            <a class="{{ buttonClass }}" href="{{ cta.href }}">{{ cta.text }}</a>
+        {% endif %}
+    </div>
+</section>

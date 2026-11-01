@@ -1,0 +1,20 @@
+{# courses comes from FeaturedCourses::action(). Without courses the website shows nothing, the editor a hint. #}
+{% if courses or editmode %}
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">{{ opendxp_input('headline', {placeholder: 'Überschrift'}) }}</h2>
+
+            {% if courses %}
+                <ul class="course-grid">
+                    {% for course in courses %}
+                        <li class="course-grid__item">
+                            {{ include('components/course-card.html.twig', {course: course, headingLevel: 3}, with_context = false) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">Noch kein Kurs ist als „Auf der Startseite hervorheben“ markiert.</p>
+            {% endif %}
+        </div>
+    </section>
+{% endif %}

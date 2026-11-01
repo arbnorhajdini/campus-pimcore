@@ -16,7 +16,7 @@ bis zu sauberem, barrierefreiem Frontend in Twig und SCSS.
 - [x] Layout mit Twig-Vererbung, SCSS-Grundgerüst (BEM, Mobile First)
 - [x] Kursübersicht mit Filter nach Standort und Kategorie, Kursdetailseite
 - [x] Deutsch und Französisch, mit Sprachumschalter und hreflang
-- [ ] Startseite aus Areabricks: Hero, Teaser, nächste Kurse, Text mit Bild, FAQ
+- [x] Startseite aus Areabricks: Hero, Kurse im Fokus, Text mit Bild, FAQ
 - [ ] Anmeldeformular mit Validierung und barrierefreien Fehlermeldungen
 - [x] Tests und statische Analyse
 - [ ] CI mit GitHub Actions
@@ -69,12 +69,25 @@ Die Kursbilder sind generierte Farbverläufe, damit das Repo keine Fotos mit unk
 
 | Seite         | Deutsch                     | Französisch                 | Technik                                  |
 | ------------- | --------------------------- | --------------------------- | ---------------------------------------- |
-| Start         | `/de`                       | `/fr`                       | Dokument mit Editables                   |
+| Start         | `/de`                       | `/fr`                       | Dokument aus Areabricks                  |
 | Kursübersicht | `/de/kurse`                 | `/fr/cours`                 | Dokument, Controller lädt die Kurse      |
 | Kursdetail    | `/de/kurse/web-entwicklung` | `/fr/cours/web-entwicklung` | Symfony-Route mit einem Pfad pro Sprache |
 
 `/` leitet auf die Sprache weiter, die der Browser bevorzugt. Die Seiten beider Sprachen sind in OpenDXP als
 Übersetzungen verknüpft, der Sprachumschalter führt deshalb immer auf dieselbe Seite in der anderen Sprache.
+
+## Areabricks
+
+Die Startseite besteht aus Bausteinen, die Redakteure im Admin hinzufügen, verschieben und bearbeiten.
+Jeder Brick ist eine Klasse in [`src/Document/Areabrick/`](src/Document/Areabrick) und ein Template in
+[`templates/areas/`](templates/areas).
+
+| Brick              | Inhalt                                                                         |
+| ------------------ | ------------------------------------------------------------------------------ |
+| Hero               | Titel (h1), Einleitung, Button mit Link-Editable                               |
+| Kurse im Fokus     | Lädt in `action()` die Kurse mit dem Häkchen „Auf der Startseite hervorheben“  |
+| Text mit Bild      | Überschrift, WYSIWYG-Text, Bild mit Thumbnail, Position links oder rechts      |
+| Häufige Fragen     | Block mit beliebig vielen Fragen, als `<details>` ohne JavaScript aufklappbar   |
 
 ## Frontend
 

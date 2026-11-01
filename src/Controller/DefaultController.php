@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Course\CourseRepository;
 use OpenDxp\Bundle\AdminBundle\Controller\Admin\LoginController;
 use OpenDxp\Controller\FrontendController;
 use OpenDxp\Tool;
@@ -24,11 +23,9 @@ class DefaultController extends FrontendController
         return $this->redirect("/{$language}");
     }
 
-    public function homeAction(CourseRepository $courses): Response
+    public function homeAction(): Response
     {
-        return $this->render('pages/home.html.twig', [
-            'featuredCourses' => $courses->findFeatured(3),
-        ]);
+        return $this->render('pages/home.html.twig');
     }
 
     public function loginAction(): Response

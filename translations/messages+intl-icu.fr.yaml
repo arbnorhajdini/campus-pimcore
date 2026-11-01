@@ -16,10 +16,6 @@ footer:
     demo_note: Un projet de démonstration. L'école, ses cours et ses sites sont fictifs.
     source: Code source sur GitHub
 
-home:
-    cta: Voir tous les cours
-    featured: Formations appréciées
-
 course:
     category:
         it: Informatique

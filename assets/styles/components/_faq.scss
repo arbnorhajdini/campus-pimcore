@@ -1,0 +1,57 @@
+.faq {
+    max-width: 48rem;
+
+    &__title {
+        margin-bottom: var(--space-5);
+    }
+
+    &__list {
+        border-top: 1px solid var(--color-border);
+    }
+
+    &__item {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    // The default marker differs between browsers, so CSS draws a plus that turns into a minus.
+    &__question {
+        position: relative;
+        padding: var(--space-4) var(--space-7) var(--space-4) 0;
+        font-weight: 600;
+        list-style: none;
+        cursor: pointer;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &::before,
+        &::after {
+            position: absolute;
+            top: 50%;
+            right: var(--space-2);
+            width: 0.875rem;
+            height: 2px;
+            content: '';
+            background: var(--color-primary);
+            transition: transform var(--transition);
+        }
+
+        &::after {
+            transform: rotate(90deg);
+        }
+
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+
+    &__item[open] &__question::after {
+        transform: rotate(0deg);
+    }
+
+    &__answer {
+        padding-bottom: var(--space-5);
+        color: var(--color-muted);
+    }
+}

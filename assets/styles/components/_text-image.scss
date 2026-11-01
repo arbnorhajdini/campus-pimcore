@@ -1,0 +1,48 @@
+@use '../abstracts/breakpoints' as *;
+
+// Stacked on small screens, side by side from md. The image modifiers only change the order.
+.text-image {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+
+    @include respond(md) {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-7);
+    }
+
+    // Without an image the text keeps a readable line length instead of filling half the grid.
+    &--text-only {
+        @include respond(md) {
+            grid-template-columns: minmax(0, 48rem);
+        }
+    }
+
+    &--image-left &__media {
+        @include respond(md) {
+            order: -1;
+        }
+    }
+
+    &__text {
+        display: grid;
+        gap: var(--space-4);
+    }
+
+    &__media {
+        overflow: hidden;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &__setting {
+        padding: var(--space-3);
+        font-size: var(--font-size-small);
+        background: var(--color-surface);
+        border-radius: var(--radius-small);
+    }
+}

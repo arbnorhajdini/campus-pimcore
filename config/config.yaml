@@ -26,6 +26,12 @@ opendxp:
                         quality: 80
                         items:
                             - { method: cover, arguments: { width: 1200, height: 600, positioning: center } }
+                    text-image:
+                        id: text-image
+                        name: text-image
+                        quality: 80
+                        items:
+                            - { method: cover, arguments: { width: 800, height: 600, positioning: center } }
 
 framework:
     cache:

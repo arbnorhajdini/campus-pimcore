@@ -12,6 +12,7 @@
 @use 'layout/section';
 
 @use 'components/button';
+@use 'components/hero';
 @use 'components/badge';
 @use 'components/breadcrumb';
 @use 'components/language-switch';
@@ -19,7 +20,8 @@
 @use 'components/course-card';
 @use 'components/course-grid';
 @use 'components/course-filter';
+@use 'components/text-image';
+@use 'components/faq';
 
-@use 'pages/home';
 @use 'pages/course-list';
 @use 'pages/course-detail';
